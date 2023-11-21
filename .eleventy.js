@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = function(eleventyConfig) {
-    eleventyConfig.addPassthroughCopy("src/CNAME");
+    eleventyConfig.addPassthroughCopy("CNAME");
 
     // Copy README.md to index.md before the build
     eleventyConfig.on('beforeBuild', () => {
