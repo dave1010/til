@@ -1,4 +1,12 @@
-<h1>Batch converting images with ImageMagick</h1>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+  </head>
+  <body>
+    <h1>Batch converting images with ImageMagick</h1>
 <p>date:   2012-08-22 21:24:07</p>
 <p>Every now and then I need to batch resize or change the quality in some images. Photoshop and the GIMP let you do this, which is fine if you’re happy using your mouse or lots of RAM. The most efficient way of processing images is with ImageMagick. ImageMagick is the canonical way to do image manipulation and many GUI tools are based on it. ImageMagick is a useful tool to know and learning the basics of it will hopefully save you lots of time.</p>
 <p>First up, you may need to install ImageMagick. A <code>sudo apt-get install imagemagick</code> for Ubuntu/Debian or a <code>yum install ImageMagick</code> for Fedora/CentOS should do the trick if you’re on Linux. Head to the <a href="http://www.imagemagick.org/script/binary-releases.php">ImageMagick download page</a> if you’re using a different OS.</p>
@@ -23,3 +31,12 @@ mogrify -resize 800 -quality 60 photo.jpg</p>
 <h2>Further reading</h2>
 <p>I’ve only touched on a small fragment of what ImageMagick is capable of. It also allows you to add filters like Instagram and layers like text and watermarks.</p>
 <p>If you thirst for more image processing knowledge, read through the documentation for <a href="http://www.imagemagick.org/www/convert.html">convert</a> and <a href="http://www.imagemagick.org/www/mogrify.html">mogrify</a> on the ImageMagick site, then have a look at some of the <a href="http://www.imagemagick.org/www/command-line-tools.html">other commands</a> ImageMagick provides.</p>
+
+
+    <hr>
+    &copy; Dave Hulbert
+
+    <a href="https://github.com/dave1010/til/blob/main/./imagemagick/2012-08-22-imagemagick.md">Edit this page on GitHub</a>
+
+  </body>
+</html>

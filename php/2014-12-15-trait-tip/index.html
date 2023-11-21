@@ -1,4 +1,12 @@
-<h1>Traits with interfaces</h1>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+  </head>
+  <body>
+    <h1>Traits with interfaces</h1>
 <p>date:   2014-12-15 21:14:07</p>
 <p>In PHP, Traits can't implement interfaces. They can, however, include abstract methods. These methods then need to be implemented by the concrete class that implements the trait. This allows a trait to provide some boilerplate implementation that depends on an concrete implementation. This isn't always a good idea (it's verging on violating the <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle">Dependency Inversion Principle</a> but it's better than a trait attempting to use a method that has no contract.</p>
 <p>Example:</p>
@@ -13,3 +21,12 @@ trait LoggerTrait
     } 
 }
 </code></pre>
+
+
+    <hr>
+    &copy; Dave Hulbert
+
+    <a href="https://github.com/dave1010/til/blob/main/./php/2014-12-15-trait-tip.md">Edit this page on GitHub</a>
+
+  </body>
+</html>

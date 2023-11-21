@@ -1,6 +1,23 @@
-<p>Strace</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+  </head>
+  <body>
+    <p>Strace</p>
 <p>date:   2014-02-01 12:24:07</p>
 <p>Quick strace command that I use all the time to see what files a process is opening:</p>
 <p>strace -f <command> 2&gt;&amp;1 | grep ^open</p>
 <p>Really useful to see what config files something is reading (and the order) or to see what PHP (or similar) files are being included.</p>
 <p>There’s normally other ways to do this (eg using a debugger) but sending strace’s stderr to stdout and piping through grep is useful in so many cases it’s become a command I use every day or 2.</p>
+
+
+    <hr>
+    &copy; Dave Hulbert
+
+    <a href="https://github.com/dave1010/til/blob/main/./linux/2014-02-01-strace.md">Edit this page on GitHub</a>
+
+  </body>
+</html>

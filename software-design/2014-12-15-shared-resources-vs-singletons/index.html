@@ -1,4 +1,12 @@
-<h1>Singletons: bad. Shared resources in a DIC: good.</h1>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+  </head>
+  <body>
+    <h1>Singletons: bad. Shared resources in a DIC: good.</h1>
 <p>date:   2014-12-15 07:44:07</p>
 <h2>Singletons</h2>
 <p>The Singleton pattern is when you can only instantiate 1 instance of a class. Realistically the only way to do this in PHP is by controlling object lifetime inside the object itself globally. This is bad as it uses global state (and is why Singleton is often considered an anti pattern).</p>
@@ -43,3 +51,12 @@ class Container {
 <h2>The difference</h2>
 <p>Often people confuse the Singleton pattern with a container sharing a resource. You can pretty much guarantee that using a Singleton is a bad idea. Sharing resources, however, is often a good idea.</p>
 <p>The difference between the Singleton pattern and a shared resource in a DIC is that the Singleton's state is global but the DIC's shared resource is stored in the DIC. The latter is not considered an anti pattern as the DIC is just like any object you can instantiate or mock.</p>
+
+
+    <hr>
+    &copy; Dave Hulbert
+
+    <a href="https://github.com/dave1010/til/blob/main/./software-design/2014-12-15-shared-resources-vs-singletons.md">Edit this page on GitHub</a>
+
+  </body>
+</html>

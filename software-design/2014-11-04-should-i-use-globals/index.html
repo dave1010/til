@@ -1,4 +1,12 @@
-<h1>Should I use global variables?</h1>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+  </head>
+  <body>
+    <h1>Should I use global variables?</h1>
 <p>date:   2014-11-04 22:44:07</p>
 <p>Someone <a href="http://www.reddit.com/r/PHP/comments/2lct7y/question_do_you_use_globals_or_not/">posted a question</a> about using global variables on <a href="http://www.reddit.com/r/PHP">r/php</a>, which I answered. Copied here for posterity.</p>
 <p>Using global state is technical debt. This means you're trading off short term wins (mostly writing less boiler plate code) with long term losses. If you get good at writing clean, SOLID code then any short term win from a shortcut is pretty much removed. There are lots of things that influence whether taking on technical debt is a good idea or not (including non-technical reasons), so the only correct answer is &quot;it depends&quot;.</p>
@@ -46,3 +54,12 @@ new Foo($db);
 </code></pre>
 <p>If by doing this you're thinking &quot;hey, that means I have to inject $db into hundreds of places&quot; then your code is already relying on dependencies all over the places. This means you should (to speed up development and improve quality in the long term) refactor classes that depend on the dependencies to define clear responsibilities (the <a href="http://en.wikipedia.org/wiki/Single_responsibility_principle">S in SOLID</a>).</p>
 <p>Note: as with all cases with technical debt vs clean code, there is a trade off. In general, your future self will thank you for doing it correctly early on.</p>
+
+
+    <hr>
+    &copy; Dave Hulbert
+
+    <a href="https://github.com/dave1010/til/blob/main/./software-design/2014-11-04-should-i-use-globals.md">Edit this page on GitHub</a>
+
+  </body>
+</html>
