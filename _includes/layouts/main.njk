@@ -11,7 +11,12 @@
     <hr>
     &copy; Dave Hulbert
 
-    <a href="https://github.com/dave1010/til/blob/main/{{ page.inputPath }}">Edit this page on GitHub</a>
-
+    {%- if page.inputPath != "./index.md" -%}
+        <p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/{{ page.inputPath }}">Edit this page on GitHub</a></p>
+    {%- else -%}
+        <p>
+          <a href="https://github.com/dave1010/til">View on GitHub</a></p>
+        </p>
+    {%- endif -%}
   </body>
 </html>
