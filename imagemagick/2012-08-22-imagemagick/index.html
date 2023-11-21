@@ -1,0 +1,25 @@
+<h1>Batch converting images with ImageMagick</h1>
+<p>date:   2012-08-22 21:24:07</p>
+<p>Every now and then I need to batch resize or change the quality in some images. Photoshop and the GIMP let you do this, which is fine if you’re happy using your mouse or lots of RAM. The most efficient way of processing images is with ImageMagick. ImageMagick is the canonical way to do image manipulation and many GUI tools are based on it. ImageMagick is a useful tool to know and learning the basics of it will hopefully save you lots of time.</p>
+<p>First up, you may need to install ImageMagick. A <code>sudo apt-get install imagemagick</code> for Ubuntu/Debian or a <code>yum install ImageMagick</code> for Fedora/CentOS should do the trick if you’re on Linux. Head to the <a href="http://www.imagemagick.org/script/binary-releases.php">ImageMagick download page</a> if you’re using a different OS.</p>
+<p>ImageMagick’s main commands are <code>convert</code> (create a new file) and <code>mogrify</code> (overwrite a file). These commands take many options and can do lots of interesting stuff. Here’s a couple of snippets that should come in handy.</p>
+<h2>Reducing image quality / size</h2>
+<p>If you need to reduce the file size of some jpgs (eg so their more suitable for the web), you can mogrify all images in the current directory like this:</p>
+<p># give all jpg images a quality of 70
+mogrify -quality 70 *.jpg</p>
+<p>The 70 here is the quality, which can be anything from 0 to 100. Unfortunately increasing the quality of a low quality image has no effect, <a href="http://www.lolwtfcomics.com/upload/uploads/1317571091.jpg">unless you’re CSI</a>.</p>
+<p><em>Note: ImageMagick supports multiple input files, so you can easily use them with your shell’s file expansion (e.g. * and ?). If you want more control, you can always use <a href="http://www.linuxplanet.com/linuxplanet/tutorials/6522/1">find and xargs</a> or a simple <a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-7.html">for loop</a>.</em></p>
+<p>To shrink large images (8MP images are common on today’s smartphones), use the <code>-resize</code> option instead of (or as well as) <code>-quality</code>:</p>
+<p># shrink to 1/4 original size
+mogrify -resize 25% photo.jpg
+# resize to fit in a box 1024x768
+mogrify -resize 1024x768 photo.jpg
+# resize to max width 800px, keeping aspect ratio, reducing quality to 60
+mogrify -resize 800 -quality 60 photo.jpg</p>
+<h2>Convert between JPG / PNG / GIF</h2>
+<p>Unlike <code>mogrify</code>, <code>convert</code> takes input and output file parameters. This means converting between different formats is as simple as choosing a different output format:</p>
+<p>convert image.png image.jpg</p>
+<p>If you’re dealing with PNG images, <a href="http://pmt.sourceforge.net/pngcrush/">Pngcrush</a> is useful too.</p>
+<h2>Further reading</h2>
+<p>I’ve only touched on a small fragment of what ImageMagick is capable of. It also allows you to add filters like Instagram and layers like text and watermarks.</p>
+<p>If you thirst for more image processing knowledge, read through the documentation for <a href="http://www.imagemagick.org/www/convert.html">convert</a> and <a href="http://www.imagemagick.org/www/mogrify.html">mogrify</a> on the ImageMagick site, then have a look at some of the <a href="http://www.imagemagick.org/www/command-line-tools.html">other commands</a> ImageMagick provides.</p>

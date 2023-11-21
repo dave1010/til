@@ -1,0 +1,91 @@
+<h1>Notes on designing through mocking</h1>
+<p>date:   2014-10-30 21:44:07</p>
+<p>My notes on Everzet's talk &quot;Design how your objects talk through mocking&quot; at PHPNW14</p>
+<ul>
+<li>Everzet's <a href="http://www.slideshare.net/everzet/design-how-your-objects-talk-through-mocking">Original slide deck</a></li>
+<li>Code sample here are using <a href="https://github.com/phpspec/prophecy">Prophecy</a> to create test doubles</li>
+</ul>
+<h1>Different test doubles: Mocks, stubs, spies, dummies and fakes</h1>
+<h2>Dummy</h2>
+<ul>
+<li>Don't care about. Passed around for typehinting.</li>
+<li>No behaviour</li>
+</ul>
+<pre><code class="language-php">&lt;?php
+class Foo { public function __construct(Dummy $dummy) {} }
+new Foo((new \Prophecy\Prophet)-&gt;prophesize(Dumnmy::class)-&gt;reveal());
+</code></pre>
+<h2>Stub</h2>
+<ul>
+<li>Has (basic) behaviour but no expectations (i.e. injects input into SUT but never handles output)</li>
+<li>Dummy that you call a method on</li>
+<li>Promises it will always return the same thing (<code>willReturn()</code>)</li>
+<li>Doesn't have to be called</li>
+</ul>
+<pre><code class="language-php">&lt;?php
+function baz(Stub $stub) { return $stub-&gt;foo(123) === 'bar';}
+$stub = (new \Prophecy\Prophet)-&gt;prophesize(Stub::class);
+$stub-&gt;foo(123)-&gt;wilLReturn('bar');
+baz($stub-&gt;reveal());
+</code></pre>
+<h2>Mock</h2>
+<ul>
+<li>Define predictions (<code>shouldBeCalled()</code>), not promises</li>
+<li>Verifies input from SUT</li>
+</ul>
+<pre><code class="language-php">&lt;?php
+function foo(Mock $mock) { $mock-&gt;bar(123); }
+$prophet = new \Prophecy\Prophet;
+$mock = $prophet-&gt;prophesize(Mock::class);
+$mock-&gt;bar(123)-&gt;shouldBeCalled();
+foo($mock-&gt;reveal());
+$prophet-&gt;checkPredictions();
+</code></pre>
+<h2>Spy</h2>
+<ul>
+<li>Records behaviour</li>
+<li>Assertions happen aftwerwards (<code>shouldHaveBeenCalled()</code>)</li>
+</ul>
+<pre><code class="language-php">&lt;?php
+function foo(Spy $spy) { $spy-&gt;bar(123); }
+$spy = (new \Prophecy\Prophet)-&gt;prophesize(Spy::class);
+foo($spy-&gt;reveal());
+$spy-&gt;bar(123)-&gt;shouldHaveBeenCalled();
+</code></pre>
+<h2>Fake</h2>
+<ul>
+<li>Return data depending on input</li>
+<li>Used to simplify a dependency. E.g. web service, DB, repository</li>
+<li>Used to isolate SUT</li>
+</ul>
+<pre><code class="language-php">&lt;?php
+interface WebServiceInterface { public function strtoupper($data); }
+class RealWebService implements WebServiceInterface {
+    public function strtoupper($data) { return file_get_contents('api.com/strtoupper/'.$data); }
+}
+class FakeWebService implements WebServiceInterface {
+    public function strtoupper($data) { return strtoupper($data); }
+}
+</code></pre>
+<h1>How mocking helps you follow SOLID principles</h1>
+<ul>
+<li>lots of mocks means <em>SRP</em> violation. Don't fake parts of objects: decouple them</li>
+<li>Duplication in tests means <em>OCP</em> violation</li>
+<li>Refused bequest: when you call a method that you didn't expect and there's an interface that covers the method. Means drivers are incompatible.</li>
+<li><em>LSP</em>: if objects implement the same interface then they should have the same behaviour. To fix, make a new interface and an adaptor</li>
+<li><em>ISP</em> violation. Don't force objects to have methods that aren't in a test. If a test doesn't use a whole interface then split the interface</li>
+<li><em>DIP</em>. Don't mock things you don't own. Don't test code you don't own, that's an integration test.</li>
+</ul>
+<h1>Testing outcomes vs testing communication between objects</h1>
+<ul>
+<li>Exposing outcomes vs exposing communications. Both. Tests usually expose outcomes but communication is important too.</li>
+<li>Exposing outcomes forces you to create meaningless getters just for tests</li>
+<li>Test outcomes when just 1 object. Test communication when multiple.</li>
+<li>Exposing communication creates more objects</li>
+<li>Don't use mocks for isolation, that's not what they're for (that's fakes)</li>
+<li>Messaging is more important than state</li>
+</ul>
+<h2>Summary</h2>
+<ul>
+<li>TDD based on communication fixes SOLID violations before they happen</li>
+</ul>

@@ -1,0 +1,6 @@
+<h1>Better Dependency Injection in Laravel</h1>
+<p>date:   2012-01-18 12:24:07</p>
+<p>We all love using Dependency Injection but often Laravel’s facades and IoC container are used more like a static service locator, which (despite being testable) can easily lead to violations of the <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle">Dependency Inversion Principle</a> (the D in <a href="http://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29">SOLID</a>).</p>
+<p>There’s been a lot of discussion around this in the PHP community recently, with calls to <a href="http://programmingarehard.com/2014/01/11/stop-using-facades.html">stop using facades</a> as well as how <a href="http://dongilbert.net/a-case-for-service-location/">service locators can be used safely</a> (the comments here are good too).</p>
+<p>The great news is Taylor, the main author of Laravel, has <a href="http://taylorotwell.com/response-dont-use-facades/">responded to this</a> and <a href="https://github.com/laravel/framework/commit/7e3a99ebbab959324eebd88bdc38667f3fd35461">made a change</a> to Laravel in v4.1.15 that makes it much easier to inject dependencies directly into controllers.</p>
+<p>I’m happy to see constructive criticism actually influencing and benefiting a framework so positively. Hopefully we’ll see more if this in the PHP community!</p>

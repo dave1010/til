@@ -1,0 +1,14 @@
+<h1>Conway’s Game of Life in Canvas</h1>
+<p>date:   2013-01-27 18:14:07</p>
+<p>I haven’t done much with <a href="https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial">Canvas</a>, so I thought I’d experiment by making <a href="http://en.wikipedia.org/wiki/Conway_game">Conway’s Game of Life</a> with a little JavaScript. Conway’s Game of Life is based on a grid of cells, which are either alive or dead. It has 4 simple rules rules:</p>
+<ol>
+<li>Any live cell with fewer than two live neighbours dies, as if caused by under-population.</li>
+<li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+<li>Any live cell with more than three live neighbours dies, as if by overcrowding.</li>
+<li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction</li>
+</ol>
+<p>These simple rules allow anything to be created. For example:</p>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/e/e5/Gospers_glider_gun.gif" alt="Gliders"></p>
+<p>Gliders in Conway’s Game of Life (from Wikipedia)</p>
+<p>You can see the code on <a href="https://github.com/dave1010/conway-canvas/blob/master/conway.js">GitHub</a>. It’s very basic but works OK and isn’t too bad for a couple of hours whilst watching TV (it may eat up your CPU a little, sorry). Pull requests, ideas and suggestions welcome.</p>
+<p>You can see it in action in the header of this blog. If you move your mouse over it then it will leave a trail of blocks. Clicking on the canvas will add lots of random cells.</p>

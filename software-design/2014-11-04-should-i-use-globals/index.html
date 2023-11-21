@@ -1,0 +1,48 @@
+<h1>Should I use global variables?</h1>
+<p>date:   2014-11-04 22:44:07</p>
+<p>Someone <a href="http://www.reddit.com/r/PHP/comments/2lct7y/question_do_you_use_globals_or_not/">posted a question</a> about using global variables on <a href="http://www.reddit.com/r/PHP">r/php</a>, which I answered. Copied here for posterity.</p>
+<p>Using global state is technical debt. This means you're trading off short term wins (mostly writing less boiler plate code) with long term losses. If you get good at writing clean, SOLID code then any short term win from a shortcut is pretty much removed. There are lots of things that influence whether taking on technical debt is a good idea or not (including non-technical reasons), so the only correct answer is &quot;it depends&quot;.</p>
+<p>In my experience: <strong>taking on this form of technical debt is virtually never worth it</strong>.</p>
+<p>With a global variable you're doing something like this:</p>
+<pre><code class="language-php">&lt;?php
+class Foo {
+    public function __construct()
+    {
+        $this-&gt;db = $GLOBALS['db'];
+    }
+}
+$foo = new Foo;
+</code></pre>
+<p>In this case, <code>$foo</code> has a hidden dependency on <code>$GLOBALS['db']</code>. That means from the outside, Foo is much harder to use, test, refactor and extend. Without refactoring, your code will rot whenever you add new features.</p>
+<p>Injecting your dependencies into <code>Foo</code> gives you the ability to decouple <code>Foo</code> from its dependencies. This makes testing and refactoring much easier. This can be done in 1 of 2 ways. Injecting a service locator is the first way to decoupling <code>Foo</code>.</p>
+<pre><code class="language-php">&lt;?php
+class Foo {
+    public function __construct(ServiceLocator $serviceLocator)
+    {
+        $this-&gt;db = $serviceLocator-&gt;getDb();
+    }
+}
+new Foo($serviceLocator);
+</code></pre>
+<p>A service locator gives you separation between <code>Foo</code>'s dependency on the DB abstraction and the actual DB implementation. The service locator still keeps the dependency hidden inside <code>Foo</code> though, which means <code>Foo</code> is still quite hard to refactor. In fact, if your <code>$serviceLocator</code> itself is in the global scope, it's almost the same as injecting <code>$GLOBALS</code> into <code>Foo</code> (which isn't great):</p>
+<pre><code class="language-php">&lt;?php
+class Foo {
+    public function __construct(array &amp;$globals)
+    {
+        $this-&gt;db = $globals['db'];
+    }
+}
+new Foo($GLOBALS);
+</code></pre>
+<p>The best thing to do is to inject the actual dependencies into <code>Foo</code>. This means you can follow the <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle">Dependency Inversion Principle</a> (the D in <a href="http://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29">SOLID</a>).</p>
+<pre><code class="language-php">&lt;?php
+class Foo {
+    public function __construct(Connection $db)
+    {
+        $this-&gt;db = $db;
+    }
+}
+new Foo($db);
+</code></pre>
+<p>If by doing this you're thinking &quot;hey, that means I have to inject $db into hundreds of places&quot; then your code is already relying on dependencies all over the places. This means you should (to speed up development and improve quality in the long term) refactor classes that depend on the dependencies to define clear responsibilities (the <a href="http://en.wikipedia.org/wiki/Single_responsibility_principle">S in SOLID</a>).</p>
+<p>Note: as with all cases with technical debt vs clean code, there is a trade off. In general, your future self will thank you for doing it correctly early on.</p>

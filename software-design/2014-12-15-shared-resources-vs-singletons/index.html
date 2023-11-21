@@ -1,0 +1,45 @@
+<h1>Singletons: bad. Shared resources in a DIC: good.</h1>
+<p>date:   2014-12-15 07:44:07</p>
+<h2>Singletons</h2>
+<p>The Singleton pattern is when you can only instantiate 1 instance of a class. Realistically the only way to do this in PHP is by controlling object lifetime inside the object itself globally. This is bad as it uses global state (and is why Singleton is often considered an anti pattern).</p>
+<pre><code class="language-php">&lt;?php
+trait Singleton {
+    public static function getInstance()
+    {
+        static $instance = null;
+        if (null === $instance) {
+            $instance = new static();
+        }
+  
+        return $instance;
+    }
+}
+</code></pre>
+<h2>Shared resources and services</h2>
+<p>Another object (eg a DI container) can decide to only return a single instance of a class if it wants to. It does this by creating it the first time (usually lazily, the first time it is created, rather than ASAP) then sharing that resource by storing it as state in the container.</p>
+<pre><code class="language-php">&lt;?php
+class Container {
+    private $instances = [];
+    private $factories = [];
+    
+    public function share($name, Callable $factory)
+    {
+        $this-&gt;factories[$name] = $factory
+    }
+
+    public function get($name)
+    {
+        if (!isset($this-&gt;instances[$name])) {
+            $factory = $this-&gt;factories[$name];
+            $this-&gt;instances[$name] = $factory;
+        }
+
+        return $this-&gt;instances[$name];
+    }
+}
+</code></pre>
+<h2>The similarities</h2>
+<p>Both patterns reduce the amount of instance creation. This reduces memory usage and time cost. This is especially useful when dealing with external resources (such as file and databases).</p>
+<h2>The difference</h2>
+<p>Often people confuse the Singleton pattern with a container sharing a resource. You can pretty much guarantee that using a Singleton is a bad idea. Sharing resources, however, is often a good idea.</p>
+<p>The difference between the Singleton pattern and a shared resource in a DIC is that the Singleton's state is global but the DIC's shared resource is stored in the DIC. The latter is not considered an anti pattern as the DIC is just like any object you can instantiate or mock.</p>
