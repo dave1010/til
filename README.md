@@ -1,6 +1,6 @@
-# til
+# Dave Hulbert's Today I Learned (TIL)
 
-## Dave Hulbert's Today I Learned
+## [`https://til.dave.engineer`](https://til.dave.engineer)
 
 Inspired by [Simon Willison's TIL](https://til.simonwillison.net/) and [jbranchaud/til](https://github.com/jbranchaud/til).
 
