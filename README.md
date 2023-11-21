@@ -1,5 +1,8 @@
 # til
-Dave Hulbert's Today I Learned
+
+## Dave Hulbert's Today I Learned
+
+Inspired by [Simon Willison's TIL](https://til.simonwillison.net/) and [jbranchaud/til](https://github.com/jbranchaud/til).
 
 <!-- TODO: add this into README.md automatically -->
 <ul>
