@@ -1,11 +1,11 @@
 
-# Explopring OpenAI's GPT-4 Vision API and a handy shell script to query it
+# Exploring OpenAI's GPT-4 Vision API and a handy shell script to query it
 
 OpenAI recently made their GPT-4-backed vision capabilities available to API developers. Here's [OpenAI's Vision API Guide](https://platform.openai.com/docs/guides/vision).
 
 After seeing this [demo on Twitter](https://twitter.com/charliebholtz/status/1724815159590293764) and examining the code [here](https://github.com/cbh123/narrator/blob/main/narrator.py), I decided to experiment with it myself.
 
-It's increadibly simple to use...
+It's incredibly simple to use...
 
 The OpenAI docs provide an example with the following content:
 
