@@ -4,11 +4,16 @@
 
 Inspired by [Simon Willison's TIL](https://til.simonwillison.net/) and [jbranchaud/til](https://github.com/jbranchaud/til).
 
+Run with `npm run build` or `npm run serve`
+
 <!-- TODO: add this into README.md automatically -->
-<ul>
-{%- for post in collections.all -%}
-  {%- if post.url != "/" -%}
-    <li><a href="{{ post.url }}">{{ post.url }}</a></li>
-  {%- endif -%}
-{%- endfor -%}
-</ul>
+
+{% for category in collections.nestedPosts | sort %}
+  <h2>{{ category[0] }}</h2>
+  <ul>
+    {% for post in category[1] | sort: 'title' %}<li><a href="{{ post.url }}">{{ post.url }}</a></li>
+    {% endfor %}
+  </ul>
+{% endfor %}
+
+

@@ -25,6 +25,25 @@ module.exports = function(eleventyConfig) {
 
     eleventyConfig.setUseGitIgnore(false);
 
+    eleventyConfig.addCollection("nestedPosts", function(collectionApi) {
+        let nestedPosts = {};
+        collectionApi.getAll().forEach(item => {
+            if (item.url !== '/') { // Ignore the homepage
+                const segments = item.url.split('/').filter(Boolean);
+                if (segments.length > 1) {
+                    const [category, page] = segments;
+                    if (!nestedPosts[category]) {
+                        nestedPosts[category] = [];
+                    }
+                    nestedPosts[category].push({ title: item.data.title, url: item.url });
+                }
+            }
+        });
+        return nestedPosts;
+    });
+
+
+
     return {
         dir: {
             input: ".",
