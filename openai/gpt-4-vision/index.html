@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+  </head>
+  <body>
+    <h1>Explopring OpenAI's GPT-4 Vision API and a handy shell script to query it</h1>
+<p>OpenAI recently made their GPT-4-backed vision capabilities available to API developers. Here's <a href="https://platform.openai.com/docs/guides/vision">OpenAI's Vision API Guide</a>.</p>
+<p>After seeing this <a href="https://twitter.com/charliebholtz/status/1724815159590293764">demo on Twitter</a> and examining the code <a href="https://github.com/cbh123/narrator/blob/main/narrator.py">here</a>, I decided to experiment with it myself.</p>
+<p>It's increadibly simple to use...</p>
+<p>The OpenAI docs provide an example with the following content:</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;text&quot;,
+  &quot;text&quot;: &quot;What’s in this image?&quot;
+},
+{
+  &quot;type&quot;: &quot;image_url&quot;,
+  &quot;image_url&quot;: {
+    &quot;url&quot;: &quot;https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg&quot;
+  }
+}
+</code></pre>
+<p>This is encapsulated within their standard <code>messages</code> object, used across all their chat APIs.</p>
+<p>To use this, you need to select the <code>gpt-4-vision-preview</code> model, which is available if you have GPT-4 API access.</p>
+<h2><code>gptv</code> shell script</h2>
+<p>I created a simple shell script that calls the API with a user-provided image URL and query.</p>
+<p>First, you'll need an API key set in your shell environment. <a href="https://platform.openai.com/api-keys">Get your API key here</a>.</p>
+<pre><code class="language-bash">export OPENAI_API_KEY=&quot;your-secret-key&quot;
+</code></pre>
+<p>Then, <strong><a href="https://gist.github.com/dave1010/64332d1ede5d7e11e45d93570d973bde">download the gptv script from this Gist</a></strong>.</p>
+<p>curl https://gist.githubusercontent.com/dave1010/64332d1ede5d7e11e45d93570d973bde/raw/789bd70a8f9b02913e61e7cd0b706481d8c9ee19/gptv -o gptv &amp;&amp; chmod +x gptv</p>
+<p>You'll also need <code>jq</code> installed (<code>sudo apt-get install jq</code> on Ubuntu or <code>brew install jq</code> on macOS).</p>
+<p>Run it by providing a prompt and a public URL to an image:</p>
+<pre><code class="language-bash">gptv 'give me some basic html and css for this web page menu' 'https://i.imgur.com/VDirZDf.png'
+</code></pre>
+<p>The script formats the input, calls OpenAI's API, and then displays the relevant output. It takes about 10 seconds at the moment.</p>
+<p>Here's the rendered HTML and CSS that it generated:</p>
+<p><img src="https://i.imgur.com/MJIadjB.png" alt="Generated Code Image"></p>
+<h2>Future improvements</h2>
+<ul>
+<li>Support for uploading images directly.</li>
+<li>Resize images and use the <code>detail</code> option for better analysis.</li>
+</ul>
+<h2>More examples</h2>
+<p><code>gptv 'explain this xkcd' https://imgs.xkcd.com/comics/rebuttals.png</code></p>
+<p><img src="https://imgs.xkcd.com/comics/rebuttals.png" alt="xkcd"></p>
+<p>This comic is from the webcomic &quot;xkcd&quot; by Randall Munroe and is typically known for its satirical take on science, technology, mathematics, and relationships.</p>
+<p>The comic is addressing a situation that often arises in scientific and academic fields. It starts by discussing how it has become common for there to be a backlash against the prevailing consensus in a field. This dissenting view can sometimes lead researchers to ignore new evidence that does not fit with their preconceived ideas or the current contrarian viewpoint (which has itself become a kind of new 'conventional wisdom').</p>
+<p>The punchline of the comic, &quot;In a field that’s been around for a while, it can be hard to figure out how many levels of rebuttal deep you are,&quot; humorously points out that in longstanding fields of study, the debates and rebuttals can become so layered and complex that it's difficult to keep track of the current state of accepted wisdom. The idea is that there's a rebuttal to the original theory, then there's a rebuttal to that rebuttal, and potentially many more layers as new evidence comes to light and new interpretations are made, creating a confusing intellectual landscape. This reflects the complexity of scientific discourse where multiple generations of theories and counter-theories can coexist.</p>
+<p>The image shows a chart with arrows pointing back and forth between &quot;evidence&quot; and a figure representing a researcher or academic, indicating the back-and-forth nature of arguments and counterarguments in a well-established field.</p>
+<p><code>gptv 'which 1 should i buy?' https://i.imgur.com/ApuSMfv.png</code></p>
+<p>In terms of value per 100 grams, the 910g bottle at full price offers the best deal at 43.8p per 100g, totalling £3.99 for the entire bottle.
+...</p>
+
+
+    <hr>
+    &copy; Dave Hulbert<p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/./openai/gpt-4-vision.md" target="_blank">Edit this page on GitHub</a></p></body>
+</html>
