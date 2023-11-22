@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+  </head>
+  <body>
+    <h1>Extracting an Installed APK from an Android Device</h1>
+<p>I was trying to get a copy of an Android app APK file today.
+This can be really handy if you need to back up an app that's not on the Play Store anymore,
+or if you're trying to debug a problem and you don't have the original source code.
+It's also useful for sending an app to a device that doesn't have access to the Play Store, or for inspecting the app for security reasons.</p>
+<p>This used to be a straightforward task, but Google's shift to using Android App Bundles (AABs) has made it a bit more challenging.
+AABs are an upload format that includes all the app’s compiled code and resources,
+but they rely on Google Play to generate and sign the actual APK files that are installed on devices.
+This means you don't get a single APK file from the Play Store anymore, which adds a few extra steps to extract an APK from a device.</p>
+<h2>Steps to Extract an APK</h2>
+<p>There's loads of guides online but this is what worked for me, with some help from ChatGPT.</p>
+<ol>
+<li>
+<p><strong>Enable USB Debugging</strong>:</p>
+<ul>
+<li>Go to <code>Settings &gt; About phone</code> on your Android device.</li>
+<li>Tap <code>Build number</code> seven times to enable <code>Developer options</code>.</li>
+<li>In <code>Developer options</code>, enable <code>USB debugging</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Install ADB</strong>:</p>
+<ul>
+<li>Install Android Debug Bridge (ADB) from <a href="https://developer.android.com/tools">Android SDK Platform-Tools</a> on your computer.</li>
+</ul>
+</li>
+<li>
+<p><strong>Connect Your Device</strong>:</p>
+<ul>
+<li>Connect your Android device to your computer via USB.</li>
+</ul>
+</li>
+<li>
+<p><strong>Check ADB Device Connection</strong>:</p>
+<ul>
+<li>Run <code>adb devices</code> in your terminal to ensure your device is properly connected.</li>
+</ul>
+</li>
+<li>
+<p><strong>Find the Package Name</strong>:</p>
+<ul>
+<li>Use <code>adb shell pm list packages | grep [App_Name]</code> to find the package name of the app.</li>
+</ul>
+</li>
+<li>
+<p><strong>Extract the APK</strong>:</p>
+<ul>
+<li>Find the path of the APK with <code>adb shell pm path [Package_Name]</code>.</li>
+<li>Pull the APK to your computer using <code>adb pull [APK_File_Path]</code>. This will put it in the current directory.</li>
+</ul>
+</li>
+</ol>
+
+
+    <hr>
+    &copy; Dave Hulbert<p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/./android/download-an-apk.md" target="_blank">Edit this page on GitHub</a></p></body>
+</html>
