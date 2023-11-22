@@ -38,12 +38,13 @@ export OPENAI_API_KEY="your-secret-key"
 
 Then, **[download the gptv script from this Gist](https://gist.github.com/dave1010/64332d1ede5d7e11e45d93570d973bde)**.
 
-    curl https://gist.githubusercontent.com/dave1010/64332d1ede5d7e11e45d93570d973bde/raw/789bd70a8f9b02913e61e7cd0b706481d8c9ee19/gptv -o gptv && chmod +x gptv
+```bash
+curl https://gist.githubusercontent.com/dave1010/64332d1ede5d7e11e45d93570d973bde/raw/789bd70a8f9b02913e61e7cd0b706481d8c9ee19/gptv -o gptv && chmod +x gptv
+```
 
 You'll also need `jq` installed (`sudo apt-get install jq` on Ubuntu or `brew install jq` on macOS).
 
 Run it by providing a prompt and a public URL to an image:
-
 
 ```bash
 gptv 'give me some basic html and css for this web page menu' 'https://i.imgur.com/VDirZDf.png'
