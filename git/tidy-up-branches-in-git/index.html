@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+  </head>
+  <body>
+    <h1>Tidy up remote branches in git</h1>
+<p>Remove branches that have been merged on the remote (skipping <code>master</code>)</p>
+<p>git branch -r --merged | grep -v master | sed 's/origin///' | xargs -n 1 git push --delete origin</p>
+<p>Or if you use <code>main</code>:</p>
+<p>git branch -r --merged | grep -v main | sed 's/origin///' | xargs -n 1 git push --delete origin</p>
+
+
+    <hr>
+    &copy; Dave Hulbert<p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/./git/tidy-up-branches-in-git.md" target="_blank">Edit this page on GitHub</a></p></body>
+</html>
