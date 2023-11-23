@@ -11,7 +11,7 @@ Run with `npm run build` or `npm run serve`
 {% for category in collections.nestedPosts | sort %}
   <h2>{{ category[0] }}</h2>
   <ul>
-    {% for post in category[1] | sort: 'title' %}<li><a href="{{ post.url }}">{{ post.url }}</a></li>
+    {% for post in category[1] | sort: 'title' %}<li><a href="{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
   </ul>
 {% endfor %}
