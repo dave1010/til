@@ -4,12 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
   </head>
   <body>
-    <h1>Dave Hulbert's Today I Learned (TIL)</h1>
+    <header>
+        <a href="/">Dave Hulbert's Today I Learned (TIL)</a>
+    </header>
+
+    <main>
+        <section>
+            <h1>Dave Hulbert's Today I Learned (TIL)</h1>
 <h2><a href="https://til.dave.engineer"><code>https://til.dave.engineer</code></a></h2>
-<p>Inspired by <a href="https://til.simonwillison.net/">Simon Willison's TIL</a> and <a href="https://github.com/jbranchaud/til">jbranchaud/til</a>.</p>
-<p>Run with <code>npm run build</code> or <code>npm run serve</code></p>
 <!-- TODO: add this into README.md automatically -->
   <h2>android</h2>
   <ul>
@@ -45,7 +50,7 @@
   </ul>
   <h2>linux</h2>
   <ul>
-<p><li><a href="/linux/2014-02-01-strace/">Default Title</a></li></p>
+<p><li><a href="/linux/2014-02-01-strace/">Strace</a></li></p>
   </ul>
   <h2>openai</h2>
   <ul>
@@ -53,8 +58,8 @@
   </ul>
   <h2>php</h2>
   <ul>
-<p><li><a href="/php/2012-07-17-psr-0-1-2/">Default Title</a></li>
-<li><a href="/php/2012-07-30-immediately-invoked-function-expressions/">Default Title</a></li>
+<p><li><a href="/php/2012-07-17-psr-0-1-2/">PHP coding standards and style guides</a></li>
+<li><a href="/php/2012-07-30-immediately-invoked-function-expressions/">Immediately-Invoked Function Expressions in PHP</a></li>
 <li><a href="/php/2012-11-27-generators/">Generators in PHP 5.5 (with PDO)</a></li>
 <li><a href="/php/2014-01-18-laravel-di/">Better Dependency Injection in Laravel</a></li>
 <li><a href="/php/2014-12-15-trait-tip/">Traits with interfaces</a></li>
@@ -78,14 +83,24 @@
   </ul>
   <h2>web-browsers</h2>
   <ul>
-<p><li><a href="/web-browsers/2012-05-14-jquery-fast-click/">Default Title</a></li></p>
+<p><li><a href="/web-browsers/2012-05-14-jquery-fast-click/">New jQuery plugin for mobile browsers: jQuery Fast Click</a></li></p>
   </ul>
 
+        </section>
 
-    <hr>
-    &copy; Dave Hulbert<p>
-          <a href="https://github.com/dave1010/til" target="_blank">View on GitHub</a>
-          |
-          <a href="https://github.com/dave1010/til/new/main" target="_blank">New TIL</a>
-        </p></body>
+        <hr>
+
+        <footer>
+            &copy; Dave Hulbert<p>
+                    <a href="https://github.com/dave1010/til" target="_blank">View on GitHub</a>
+                    |
+                    <a href="https://github.com/dave1010/til/new/main" target="_blank">New TIL</a>
+                    <br>
+                    Inspired by <a href="https://til.simonwillison.net/">Simon Willison's TIL</a>
+                     and <a href="https://github.com/jbranchaud/til">jbranchaud/til</a>.
+                    <br>
+                    Run with `npm run build` or `npm run serve`
+                </p></footer>
+    </main>
+  </body>
 </html>

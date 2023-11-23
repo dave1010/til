@@ -4,9 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
   </head>
   <body>
-    <h1>Generators in PHP 5.5 (with PDO)</h1>
+    <header>
+        <a href="/">Dave Hulbert's Today I Learned (TIL)</a>
+    </header>
+
+    <main>
+        <section>
+            <h1>Generators in PHP 5.5 (with PDO)</h1>
 <p>date:   2012-11-27 08:14:07</p>
 <p>As the first alpha of PHP 5.5 has been released, now is a great time to play with its new features. The first new feature is <a href="https://wiki.php.net/rfc/generators">generators</a>. Generators are like very simple iterators.</p>
 <p>PDO’s PDOStatement class implements Traversable, which means you can iterate over it with foreach:</p>
@@ -60,7 +67,12 @@ foreach ($results as $result) {
 </code></pre>
 <p>Whilst this example is a bit pointless (as PDO already provides an Interator), you can see that generators are a simple way of creating iterators.</p>
 
+        </section>
 
-    <hr>
-    &copy; Dave Hulbert<p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/./php/2012-11-27-generators.md" target="_blank">Edit this page on GitHub</a></p></body>
+        <hr>
+
+        <footer>
+            &copy; Dave Hulbert<p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/./php/2012-11-27-generators.md" target="_blank">Edit this page on GitHub</a></p></footer>
+    </main>
+  </body>
 </html>

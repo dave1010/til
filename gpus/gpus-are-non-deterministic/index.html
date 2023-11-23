@@ -4,16 +4,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
   </head>
   <body>
-    <h1>GPUs are non-deterministic</h1>
+    <header>
+        <a href="/">Dave Hulbert's Today I Learned (TIL)</a>
+    </header>
+
+    <main>
+        <section>
+            <h1>GPUs are non-deterministic</h1>
 <p>This means they can do the same calculation twice and get different answers.</p>
 <p>Be careful if you use GPUs for security related things.</p>
 <p>This is because of how floating point arithmetic works in CPUs/GPUs - the same thing that results in <code>0.1 + 0.2</code> not being equal to <code>0.3</code>.</p>
 <p>Essentially it's non-associative. That means that <code>(a + b) + c</code> is not necessarily equal to <code>a + (b + c)</code>.</p>
 <p>So because GPUs are incredibly parallel, they could do a+b+c in 2 different ways.</p>
 
+        </section>
 
-    <hr>
-    &copy; Dave Hulbert<p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/./gpus/gpus-are-non-deterministic.md" target="_blank">Edit this page on GitHub</a></p></body>
+        <hr>
+
+        <footer>
+            &copy; Dave Hulbert<p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/./gpus/gpus-are-non-deterministic.md" target="_blank">Edit this page on GitHub</a></p></footer>
+    </main>
+  </body>
 </html>
