@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <header>
+        <a href="/">Dave Hulbert's Today I Learned (TIL)</a>
+    </header>
+
+    <main>
+        <section>
+            <h1>CSS Variables</h1>
+<h2>Revisiting CSS: A Pleasant Surprise</h2>
+<p>I don't often write CSS.
+To my surprise, I discovered that modern CSS now has its own native variables, known as Custom Properties.
+These are now widely supported across all major browsers (see the compatibility chart on <a href="https://caniuse.com/css-variables">caniuse.com</a>).
+Initially, I thought things like this were only available in pre-processors like Sass.</p>
+<h2>Example</h2>
+<p>For instance, the colours for this web page. I used CSS variables to define a color scheme:</p>
+<pre><code class="language-css">:root {
+    --color-midnight-blue: #10151e;
+    --color-white: #d4d6e1;
+}
+
+body {
+    background-color: var(--color-midnight-blue);
+    color: var(--color-white);
+}
+
+pre {
+    background-color: var(--color-white);
+    color: var(--color-midnight-blue);
+}
+</code></pre>
+<p>This not only makes the CSS more readable but also allows for easier theme management and dynamic styling.</p>
+<p>They're not just for colours and could be used for:</p>
+<ul>
+<li>dimensions</li>
+<li>fonts</li>
+<li>complex calculated values</li>
+</ul>
+
+        </section>
+
+        <hr>
+
+        <footer>
+            &copy; Dave Hulbert<p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/./css/css-variables.md" target="_blank">Edit this page on GitHub</a></p></footer>
+    </main>
+  </body>
+</html>
