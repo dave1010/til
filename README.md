@@ -2,10 +2,6 @@
 
 ## [`https://til.dave.engineer`](https://til.dave.engineer)
 
-Inspired by [Simon Willison's TIL](https://til.simonwillison.net/) and [jbranchaud/til](https://github.com/jbranchaud/til).
-
-Run with `npm run build` or `npm run serve`
-
 <!-- TODO: add this into README.md automatically -->
 
 {% for categoryObj in collections.nestedPosts %}

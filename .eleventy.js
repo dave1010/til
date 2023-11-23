@@ -5,6 +5,7 @@ const md = new markdownIt();
 
 module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("CNAME");
+    eleventyConfig.addPassthroughCopy("assets/css");
 
     // Copy README.md to index.md before the build
     eleventyConfig.on('beforeBuild', () => {

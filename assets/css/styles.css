@@ -1,0 +1,103 @@
+/* Define custom properties for your color scheme */
+:root {
+    --color-pink: #f037f6;
+    --color-pink-faded: #f037f680;
+    --color-light-blue: #56b6f0;
+    --color-midnight-blue: #10151e;
+    --color-white: #d4d6e1;
+    --color-black: #000000;
+}
+
+/* Apply the background and text colors */
+body {
+    background-color: var(--color-midnight-blue);
+    color: var(--color-white);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Style for headers (h1, h2, h3, etc.) */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-white);
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+/* Style for links */
+a {
+    color: var(--color-light-blue);
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    text-decoration: underline;
+}
+
+/* Style for paragraphs */
+p {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+/* Style for ordered and unordered lists */
+ol, ul {
+    padding-left: 20px;
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+/* Style for horizontal rules */
+hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--color-pink);
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+/* Style for code elements */
+pre {
+    background-color: var(--color-midnight-blue);
+    color: var(--color-white);
+    border: 1px dotted var(--color-pink-faded);
+    padding: 0.5em;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+pre {
+    overflow-x: auto;
+    margin-top: 0;
+    margin-bottom: 1em;
+    background-color: var(--color-black);
+}
+
+pre code {
+    border: none;
+    background: none;
+}
+
+code {
+    font-size: 0.95em;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--color-black);
+    padding: 5px;
+}
+
+main {
+    max-width: 800px;
+    margin: auto;
+    padding: 1rem;
+}
+
+header, footer {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+main > section {
+    margin-bottom: 2rem;
+}

@@ -4,21 +4,38 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
   </head>
   <body>
-    {{ content | safe }}
+    <header>
+        <a href="/">Dave Hulbert's Today I Learned (TIL)</a>
+    </header>
 
-    <hr>
-    &copy; Dave Hulbert
+    <main>
+        <section>
+            {{ content | safe }}
+        </section>
 
-    {%- if page.inputPath != "./index.md" -%}
-        <p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/{{ page.inputPath }}" target="_blank">Edit this page on GitHub</a></p>
-    {%- else -%}
-        <p>
-          <a href="https://github.com/dave1010/til" target="_blank">View on GitHub</a>
-          |
-          <a href="https://github.com/dave1010/til/new/main" target="_blank">New TIL</a>
-        </p>
-    {%- endif -%}
+        <hr>
+
+        <footer>
+            &copy; Dave Hulbert
+
+            {%- if page.inputPath != "./index.md" -%}
+                <p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/{{ page.inputPath }}" target="_blank">Edit this page on GitHub</a></p>
+            {%- else -%}
+                <p>
+                    <a href="https://github.com/dave1010/til" target="_blank">View on GitHub</a>
+                    |
+                    <a href="https://github.com/dave1010/til/new/main" target="_blank">New TIL</a>
+                    <br>
+                    Inspired by <a href="https://til.simonwillison.net/">Simon Willison's TIL</a>
+                     and <a href="https://github.com/jbranchaud/til">jbranchaud/til</a>.
+                    <br>
+                    Run with `npm run build` or `npm run serve`
+                </p>
+            {%- endif -%}
+        </footer>
+    </main>
   </body>
 </html>
