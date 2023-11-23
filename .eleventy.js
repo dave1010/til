@@ -80,7 +80,20 @@ module.exports = function(eleventyConfig) {
                 }
             }
         });
-        return nestedPosts;
+
+
+
+        // Convert nestedPosts to an array of {category, posts}
+        let categories = Object.keys(nestedPosts).map(category => {
+            return { category: category, posts: nestedPosts[category] };
+        });
+
+        // Sort the categories
+        categories.sort((a, b) => a.category.localeCompare(b.category));
+
+        return categories;
+
+        
     });
 
     return {
