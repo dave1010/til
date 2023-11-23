@@ -1,4 +1,4 @@
-New jQuery plugin for mobile browsers: jQuery Fast Click
+# New jQuery plugin for mobile browsers: jQuery Fast Click
 
 date:   2012-05-14 12:24:07
 
