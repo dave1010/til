@@ -13,7 +13,16 @@
 
     <main>
         <section>
-            <h1>Tidy up remote branches in git</h1>
+            <h1>Tidy up local and remote branches in git</h1>
+<h2>Your remote tracking branches</h2>
+<p>This cleans up the big origin list you get when you do <code>git branch --remote</code></p>
+<pre><code>git remote prune origin
+</code></pre>
+<h2>Local branches that have been merged</h2>
+<p>This removes your local branches that have been merged into the <em>current</em> branch.</p>
+<pre><code>git branch --merged | grep -v \* | xargs git branch -D
+</code></pre>
+<h2>Branches <em>on</em> the remote</h2>
 <p>Remove branches that have been merged on the remote (skipping <code>master</code>)</p>
 <pre><code>git branch -r --merged | grep -v master | sed 's/origin\///' | xargs -n 1 git push --delete origin
 </code></pre>
