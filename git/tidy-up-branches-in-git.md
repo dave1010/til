@@ -30,3 +30,11 @@ Or if you use `main`:
 ```
 git branch -r --merged | grep -v main | sed 's/origin\///' | xargs -n 1 git push --delete origin
 ```
+
+## Adding a `git` alias to do all this for you
+
+Note: this assumes you're currently on `master`.
+
+```
+git config --global alias.cleanup-merged '!f() { git remote prune origin; git branch --merged | grep -v \* | xargs -I {} git branch -D {}; git branch -r --merged | grep -v master | sed "s/origin\///" | xargs -n 1 git push --delete origin; }; f'
+```
