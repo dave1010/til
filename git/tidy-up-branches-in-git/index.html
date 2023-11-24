@@ -15,9 +15,11 @@
         <section>
             <h1>Tidy up remote branches in git</h1>
 <p>Remove branches that have been merged on the remote (skipping <code>master</code>)</p>
-<p>git branch -r --merged | grep -v master | sed 's/origin///' | xargs -n 1 git push --delete origin</p>
+<pre><code>git branch -r --merged | grep -v master | sed 's/origin\///' | xargs -n 1 git push --delete origin
+</code></pre>
 <p>Or if you use <code>main</code>:</p>
-<p>git branch -r --merged | grep -v main | sed 's/origin///' | xargs -n 1 git push --delete origin</p>
+<pre><code>git branch -r --merged | grep -v main | sed 's/origin\///' | xargs -n 1 git push --delete origin
+</code></pre>
 
         </section>
 
