@@ -34,6 +34,11 @@
                     <br>
                     Run with `npm run build` or `npm run serve`
                 </p>
+               <form action="https://github.com/search" method="get" onsubmit="this.q.value = 'repo:dave1010/til ' + this.q.value; return true;">
+                    <input type="hidden" name="type" value="code">
+                    <input type="text" name="q" placeholder="Enter your query">
+                    <input type="submit" value="Search">
+                </form>
             {%- endif -%}
         </footer>
     </main>
