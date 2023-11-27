@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <header>
+        <a href="/">Dave Hulbert's Today I Learned (TIL)</a>
+    </header>
+
+    <main>
+        <section>
+            <h1>Getting started with Amazon Lex</h1>
+<p>Today, I was setting up an <a href="https://docs.aws.amazon.com/lex/">Amazon Lex</a> chatbot and came across a couple of challenges.</p>
+<p>In simple terms, Amazon Lex is like a more structred version of ChatGPT.
+It uses advanced natural language understanding (NLU) and automatic speech recognition (ASR) technologies.</p>
+<p>This allows developers to create interactive  chatbots that can understand and respond to user input in a meaningful way.
+What's useful about Lex over large language models like GPT and Llama is that it's much more structured and integrates seamlessly with other AWS services.</p>
+<h2>Quick start</h2>
+<p>I started off from the <a href="https://docs.aws.amazon.com/lexv2/latest/dg/exercise-1.html">Create a bot from an example</a> example, changing a few things as I went.</p>
+<ol>
+<li>
+<p><strong>Set Up Bot and Intents:</strong> First, I set up a bot named and defined an intent. This involved understanding the purpose of the bot and what kinds of user interactions it should handle. I did this through the AWS console but you can do it from the AWS CLI.</p>
+</li>
+<li>
+<p><strong>Develop Sample Utterances:</strong> I then created sample phrases for the bot to pick up &quot;I want to buy a widget&quot; that would trigger the intent.</p>
+</li>
+<li>
+<p><strong>Configure Slots and Responses:</strong> Next, I configured slots for capturing user input (like the product) and crafted appropriate responses.</p>
+</li>
+<li>
+<p><strong>Build and Test:</strong> Finally, the bot was compiled and tested. I used commands like the one below to interact with the bot and refine its functionality.</p>
+</li>
+</ol>
+<pre><code>aws lexv2-runtime recognize-text --bot-id SJUDNSMPVC --bot-alias-id TestAlias --locale-id 'en_GB' --session-id 'testsession' --text &quot;I want to buy a widget&quot;
+</code></pre>
+<h2>Challenges</h2>
+<p>Developing a conversational AI isn't without its challenges. Here are a few I encountered:</p>
+<ul>
+<li><strong>Bot Publishing Workflow:</strong> The process has several steps, but it's efficient once you get the hang of it.</li>
+<li><strong>IDs and Aliases:</strong> It's crucial to keep track of different IDs and aliases to ensure everything functions correctly. Some commands take the bot ID, others take the alias. You'll get errors if you get them the wrong way round.</li>
+<li><strong>Formatting with Placeholders:</strong> I learned that placeholders in utterances need proper spacing to work effectively. For instance, <code>{product}</code> must have spaces around it.</li>
+</ul>
+<h2>Debugging</h2>
+<p>You can get your bot IDs and then their aliases like this:</p>
+<pre><code>aws lexv2-models list-bots
+aws lexv2-models list-bot-aliases --bot-id SJUDNSMPVC
+</code></pre>
+
+        </section>
+
+        <hr>
+
+        <footer>
+            &copy; Dave Hulbert<p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/./aws/amazon-lex.md" target="_blank">Edit this page on GitHub</a></p></footer>
+    </main>
+  </body>
+</html>
