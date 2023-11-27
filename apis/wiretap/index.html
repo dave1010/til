@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <header>
+        <a href="/">Dave Hulbert's Today I Learned (TIL)</a>
+    </header>
+
+    <main>
+        <section>
+            <h1>Making API Specifications with Wiretap and AI</h1>
+<p>I work with APIs most days and occasionally come across one without an accurate API specification.
+This happened recently and I thought it would be worth creating a spec before starting to use the API: that way I could make use of existing tools and libraries, rather than manually piecing together <code>curl</code> commands.</p>
+<p>My journey involved using <a href="https://pb33f.io/wiretap/">Wiretap</a>, an OpenAPI spec tool, in conjunction with ChatGPT and <a href="https://quobix.com/vacuum/">Vacuum</a>.</p>
+<h2>OpenAPI Specs</h2>
+<p>OpenAPI specifications are the backbone of clear, consistent API development.
+They serve as a contract between the API and its consumers, ensuring reliability and consistency.
+Benefits include automated client generation, AI integration, maintaining backward compatibility, and providing clear documentation for users.
+Following the Open API spec also allows you to make use of all sorts of existing tools, which is what I was after.</p>
+<h2>Starting with ChatGPT</h2>
+<p>Initially, I used ChatGPT to generate a basic OpenAPI spec from a handful of sample API responses. ChatGPT was great at this, writing all the standard boiler plate.
+After tweaking some assumptions that ChatGPT made and adding necessary details, I needed a robust way to validate and refine this spec. That's where Wiretap came into the picture.</p>
+<h2>Setting Up Wiretap</h2>
+<p>Installing <a href="https://pb33f.io/wiretap/">Wiretap</a> was straightforward:</p>
+<pre><code>brew install pb33f/taps/wiretap
+</code></pre>
+<p>Running Wiretap was just as simple:</p>
+<pre><code>wiretap -s path/to/spec.yaml -u https://api.example.com
+</code></pre>
+<p>This set up a local monitor at <code>http://localhost:9091/</code> and a proxy at <code>http://localhost:9090</code> for API requests.</p>
+<p>Then, all you need to do is fire requests to the localhost proxy and watch Wiretap report on any issues.</p>
+<h2>Discovering and Fixing Issues with Wiretap and Vacuum</h2>
+<p>Wiretap proved invaluable by identifying things like an invalid response type and optional parameters in my spec.
+This prompted me to validate the spec further using the <a href="https://quobix.com/vacuum/">Vacuum</a> linter, another useful tool in the API development toolkit.</p>
+<p>Once the spec was in place, it then only takes seconds to paste it into <a href="https://editor-next.swagger.io/">Swagger Editor</a> (or a tool like Postman)
+and get a working API client, making it easy to explore the API. No more messing around with <code>curl</code> and manually escaped JSON!</p>
+<p>The ease and efficiency of using tools like Wiretap and AI for documentation are game-changing - gone are the days of manual labor-intensive documentation.</p>
+
+        </section>
+
+        <hr>
+
+        <footer>
+            &copy; Dave Hulbert<p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/./apis/wiretap.md" target="_blank">Edit this page on GitHub</a></p></footer>
+    </main>
+  </body>
+</html>
