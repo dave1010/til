@@ -8,25 +8,25 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("assets/css");
 
     // Copy README.md to index.md before the build
-    eleventyConfig.on('beforeBuild', () => {
-        console.log("before");
-        const readmePath = path.join(__dirname, 'README.md');
-        const indexPath = path.join(__dirname, 'index.md');
+    // eleventyConfig.on('beforeBuild', () => {
+    //     console.log("before");
+    //     const readmePath = path.join(__dirname, 'README.md');
+    //     const indexPath = path.join(__dirname, 'index.md');
 
-        if (fs.existsSync(readmePath)) {
-            fs.copyFileSync(readmePath, indexPath);
-        }
-    });
+    //     if (fs.existsSync(readmePath)) {
+    //         fs.copyFileSync(readmePath, indexPath);
+    //     }
+    // });
     
     // Treat README.md as the index page
-    eleventyConfig.addCollection("homepage", function(collectionApi) {
-        return collectionApi.getFilteredByGlob("./README.md").map(item => {
-            item.url = "/";  // Set the URL to the site root
-            return item;
-        });
-    });
+    // eleventyConfig.addCollection("homepage", function(collectionApi) {
+    //     return collectionApi.getFilteredByGlob("./README.md").map(item => {
+    //         item.url = "/";  // Set the URL to the site root
+    //         return item;
+    //     });
+    // });
 
-    eleventyConfig.setUseGitIgnore(false);
+    // eleventyConfig.setUseGitIgnore(false);
 
     // eleventyConfig.addCollection("nestedPosts", function(collectionApi) {
     //     let nestedPosts = {};

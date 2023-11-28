@@ -8,10 +8,11 @@
   </head>
   <body>
     <header>
-        <a href="/">Dave Hulbert's Today I Learned (TIL)</a>
+        <h1><a href="/">Dave Hulbert's Today I Learned (TIL)</a></h1>
     </header>
 
     <main>
+        <hr>
         <section>
             {{ content | safe }}
         </section>
@@ -19,27 +20,19 @@
         <hr>
 
         <footer>
-            &copy; Dave Hulbert
+            <p>
+                &copy; Dave Hulbert<br> 
 
-            {%- if page.inputPath != "./index.md" -%}
-                <p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/{{ page.inputPath }}" target="_blank">Edit this page on GitHub</a></p>
-            {%- else -%}
-                <p>
+                {%- if page.inputPath != "./index.md" -%}
+                    <a href="/">Home</a>
+                    |
+                    <a href="https://github.com/dave1010/til/blob/main/{{ page.inputPath }}" target="_blank">Edit this page on GitHub</a>
+                {%- else -%}
                     <a href="https://github.com/dave1010/til" target="_blank">View on GitHub</a>
                     |
                     <a href="https://github.com/dave1010/til/new/main" target="_blank">New TIL</a>
-                    <br>
-                    Inspired by <a href="https://til.simonwillison.net/">Simon Willison's TIL</a>
-                     and <a href="https://github.com/jbranchaud/til">jbranchaud/til</a>.
-                    <br>
-                    Run with `npm run build` or `npm run serve`
+                {%- endif -%}
                 </p>
-               <form action="https://github.com/search" method="get" onsubmit="this.q.value = 'repo:dave1010/til ' + this.q.value; return true;">
-                    <input type="hidden" name="type" value="code">
-                    <input type="text" name="q" placeholder="Enter your query">
-                    <input type="submit" value="Search">
-                </form>
-            {%- endif -%}
         </footer>
     </main>
   </body>
