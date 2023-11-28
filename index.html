@@ -8,65 +8,100 @@
   </head>
   <body>
     <header>
-        <a href="/">Dave Hulbert's Today I Learned (TIL)</a>
+        <h1><a href="/">Dave Hulbert's Today I Learned (TIL)</a></h1>
     </header>
 
     <main>
+        <hr>
         <section>
             <h1>Dave Hulbert's Today I Learned (TIL)</h1>
-<h2><a href="https://til.dave.engineer"><code>https://til.dave.engineer</code></a></h2>
+<h2>About</h2>
+<p>I'm <a href="https://blog.dave.engineer/">Dave</a> and these are a few of the things
+I've learned that aren't quite big enough for a blog post.
+I'm always learning, so if you spot anything wrong then please submit a
+<a href="https://github.com/dave1010/til/pulls">PR</a> or raise an <a href="https://github.com/dave1010/til/issues">issue</a>.
+Find out <a href="til.how-this-works.md%5D">how this site works</a>.</p>
+<p>You may also want to read things that are big enough for a blog post
+on my <a href="https://blog.dave.engineer/">blog</a>.</p>
+<hr>
+<h2>Tags and Search</h2>
+<p><a href="#cat-android"><code>android</code></a>,
+<a href="#cat-apis"><code>apis</code></a>,
+<a href="#cat-aws"><code>aws</code></a>,
+<a href="#cat-bitcoin"><code>bitcoin</code></a>,
+<a href="#cat-canvas"><code>canvas</code></a>,
+<a href="#cat-css"><code>css</code></a>,
+<a href="#cat-docker"><code>docker</code></a>,
+<a href="#cat-git"><code>git</code></a>,
+<a href="#cat-gpus"><code>gpus</code></a>,
+<a href="#cat-imagemagick"><code>imagemagick</code></a>,
+<a href="#cat-linux"><code>linux</code></a>,
+<a href="#cat-openai"><code>openai</code></a>,
+<a href="#cat-php"><code>php</code></a>,
+<a href="#cat-software-design"><code>software-design</code></a>,
+<a href="#cat-tdd"><code>tdd</code></a>,
+<a href="#cat-til"><code>til</code></a>,
+<a href="#cat-vector-databases"><code>vector-databases</code></a>,
+<a href="#cat-web-browsers"><code>web-browsers</code></a>,</p>
+<form action="https://github.com/search" method="get" onsubmit="this.q.value = 'repo:dave1010/til ' + this.q.value; return true;">
+    <input type="hidden" name="type" value="code">
+    <input type="text" name="q" placeholder="Search">
+    <input type="submit" value="Search">
+</form>
+<hr>
 <!-- TODO: add this into README.md automatically -->
-  <h2>android</h2>
+<h2>All TILs</h2>
+  <h3 id="cat-android">android</h3>
   <ul>
 <p><li><a href="/android/download-an-apk/">Extracting an Installed APK from an Android Device</a></li></p>
   </ul>
-  <h2>apis</h2>
+  <h3 id="cat-apis">apis</h3>
   <ul>
 <p><li><a href="/apis/wiretap/">Making API Specifications with Wiretap and AI</a></li></p>
   </ul>
-  <h2>aws</h2>
+  <h3 id="cat-aws">aws</h3>
   <ul>
 <p><li><a href="/aws/amazon-lex/">Getting started with Amazon Lex</a></li></p>
   </ul>
-  <h2>bitcoin</h2>
+  <h3 id="cat-bitcoin">bitcoin</h3>
   <ul>
 <p><li><a href="/bitcoin/2013-01-03-bitcoin/">Bitcoin: the cryptographic currency</a></li></p>
   </ul>
-  <h2>canvas</h2>
+  <h3 id="cat-canvas">canvas</h3>
   <ul>
 <p><li><a href="/canvas/2013-01-27-conway/">Conway’s Game of Life in Canvas</a></li></p>
   </ul>
-  <h2>css</h2>
+  <h3 id="cat-css">css</h3>
   <ul>
 <p><li><a href="/css/2012-05-18-responsive-design/">Taking Responsive Design a few steps forwards</a></li>
 <li><a href="/css/css-variables/">CSS Variables</a></li></p>
   </ul>
-  <h2>docker</h2>
+  <h3 id="cat-docker">docker</h3>
   <ul>
 <p><li><a href="/docker/docker-shortcuts/">Docker Shortcuts</a></li></p>
   </ul>
-  <h2>git</h2>
+  <h3 id="cat-git">git</h3>
   <ul>
 <p><li><a href="/git/tidy-up-branches-in-git/">Tidy up local and remote branches in git</a></li></p>
   </ul>
-  <h2>gpus</h2>
+  <h3 id="cat-gpus">gpus</h3>
   <ul>
 <p><li><a href="/gpus/gpus-are-non-deterministic/">GPUs are non-deterministic</a></li></p>
   </ul>
-  <h2>imagemagick</h2>
+  <h3 id="cat-imagemagick">imagemagick</h3>
   <ul>
 <p><li><a href="/imagemagick/2012-08-22-imagemagick/">Batch converting images with ImageMagick</a></li></p>
   </ul>
-  <h2>linux</h2>
+  <h3 id="cat-linux">linux</h3>
   <ul>
 <p><li><a href="/linux/2014-02-01-strace/">Strace</a></li></p>
   </ul>
-  <h2>openai</h2>
+  <h3 id="cat-openai">openai</h3>
   <ul>
 <p><li><a href="/openai/gpt-4-vision/">Exploring OpenAI's GPT-4 Vision API and a handy shell script to query it</a></li>
 <li><a href="/openai/making-a-gpt/">Making a custom &quot;GPT&quot; for ChatGPT</a></li></p>
   </ul>
-  <h2>php</h2>
+  <h3 id="cat-php">php</h3>
   <ul>
 <p><li><a href="/php/2012-07-17-psr-0-1-2/">PHP coding standards and style guides</a></li>
 <li><a href="/php/2012-07-30-immediately-invoked-function-expressions/">Immediately-Invoked Function Expressions in PHP</a></li>
@@ -77,26 +112,26 @@
 <li><a href="/php/2015-02-04-psr-7-update/">HTTP messaging PSR-7 update</a></li>
 <li><a href="/php/composer-aliases-and-patching/">Patching Transitive Dependency Vulnerabilities in PHP Projects with Composer</a></li></p>
   </ul>
-  <h2>software-design</h2>
+  <h3 id="cat-software-design">software-design</h3>
   <ul>
 <p><li><a href="/software-design/2014-11-04-should-i-use-globals/">Should I use global variables?</a></li>
 <li><a href="/software-design/2014-12-15-shared-resources-vs-singletons/">Singletons: bad. Shared resources in a DIC: good.</a></li>
 <li><a href="/software-design/2015-02-05-balancing-technical-debt/">Balancing Technical Debt and Clean Code talk at the BCS</a></li></p>
   </ul>
-  <h2>tdd</h2>
+  <h3 id="cat-tdd">tdd</h3>
   <ul>
 <p><li><a href="/tdd/2014-10-30-designing-through-mocking/">Notes on designing through mocking</a></li>
 <li><a href="/tdd/2015-04-28-tdd-notes/">Test Driven Development training course notes</a></li></p>
   </ul>
-  <h2>til</h2>
+  <h3 id="cat-til">til</h3>
   <ul>
 <p><li><a href="/til/how-this-works/">How til.dave.engineer works</a></li></p>
   </ul>
-  <h2>vector-databases</h2>
+  <h3 id="cat-vector-databases">vector-databases</h3>
   <ul>
 <p><li><a href="/vector-databases/vector-databases-overview/">Vector Databases Overview</a></li></p>
   </ul>
-  <h2>web-browsers</h2>
+  <h3 id="cat-web-browsers">web-browsers</h3>
   <ul>
 <p><li><a href="/web-browsers/2012-05-14-jquery-fast-click/">New jQuery plugin for mobile browsers: jQuery Fast Click</a></li></p>
   </ul>
@@ -106,21 +141,11 @@
         <hr>
 
         <footer>
-            &copy; Dave Hulbert<p>
-                    <a href="https://github.com/dave1010/til" target="_blank">View on GitHub</a>
+            <p>
+                &copy; Dave Hulbert<br><a href="https://github.com/dave1010/til" target="_blank">View on GitHub</a>
                     |
-                    <a href="https://github.com/dave1010/til/new/main" target="_blank">New TIL</a>
-                    <br>
-                    Inspired by <a href="https://til.simonwillison.net/">Simon Willison's TIL</a>
-                     and <a href="https://github.com/jbranchaud/til">jbranchaud/til</a>.
-                    <br>
-                    Run with `npm run build` or `npm run serve`
-                </p>
-               <form action="https://github.com/search" method="get" onsubmit="this.q.value = 'repo:dave1010/til ' + this.q.value; return true;">
-                    <input type="hidden" name="type" value="code">
-                    <input type="text" name="q" placeholder="Enter your query">
-                    <input type="submit" value="Search">
-                </form></footer>
+                    <a href="https://github.com/dave1010/til/new/main" target="_blank">New TIL</a></p>
+        </footer>
     </main>
   </body>
 </html>
