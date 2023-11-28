@@ -2,11 +2,11 @@
 
 ## About
 
-I'm [Dave](https://blog.dave.engineer/) and these are a few of the things
+I'm [Dave](https://dave.engineer/) and these are a few of the things
 I've learned that aren't quite big enough for a blog post.
 I'm always learning, so if you spot anything wrong then please submit a
 [PR](https://github.com/dave1010/til/pulls) or raise an [issue](https://github.com/dave1010/til/issues).
-Find out [how this site works](til.how-this-works.md]).
+Find out [how this site works](til/how-this-works.md).
 
 You may also want to read things that are big enough for a blog post
 on my [blog](https://blog.dave.engineer/).
@@ -17,7 +17,6 @@ on my [blog](https://blog.dave.engineer/).
 
 {% for categoryObj in collections.nestedPosts %}
 <a href="#cat-{{ categoryObj.category }}">`{{ categoryObj.category }}`</a>, {% endfor %}
-
 
 <form action="https://github.com/search" method="get" onsubmit="this.q.value = 'repo:dave1010/til ' + this.q.value; return true;">
     <input type="hidden" name="type" value="code">
