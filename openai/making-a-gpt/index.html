@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <header>
+        <a href="/">Dave Hulbert's Today I Learned (TIL)</a>
+    </header>
+
+    <main>
+        <section>
+            <h1>Making a custom &quot;GPT&quot; for ChatGPT</h1>
+<p>First thing's first: GPT stands for Generative Pre-trained Transformer but for some reason OpenAI have reused the name for one of their products.</p>
+<h2>What's a Generative Pre-trained Transformer really?</h2>
+<p>These are artifical neural networks that use the <strong>Transformer</strong> model: a highly parallel <a href="https://en.wikipedia.org/wiki/Attention_(machine_learning)">attention</a> mechanism instead of
+being a looping sequential <a href="https://en.wikipedia.org/wiki/Recurrent_neural_network">Recurrent Neural Network</a> or a grid-like <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network">Convolutional Neural Network</a>.</p>
+<p>A GPT is <strong>pre-trained</strong> on lots of unlabeled data, so it's unsupervised.</p>
+<p>And it's <strong>generative</strong> because it can generate content, rather than only being able to classify or encode.</p>
+<h2>Custom GPTs for use with ChatGPT</h2>
+<p><a href="https://openai.com/blog/introducing-gpts">Open API introduced GPTs</a> on 6th November 2023. The most basic ones are nothing more than:</p>
+<ul>
+<li>a system prompt</li>
+<li>a logo and a description</li>
+</ul>
+<p>More complex ones can also include:</p>
+<ul>
+<li>data you upload. Presumably this gets turned into embeddings and is accessible to ChatGPT via a vector database.</li>
+<li>API access, just like ChatGPT Plugins</li>
+</ul>
+<h2>Making a basic GPT</h2>
+<p>Making a GPT takes literally a minute or 2:</p>
+<ol>
+<li>Go to the <a href="https://chat.openai.com/gpts/editor">GPT editor</a></li>
+<li>Do what ChatGPT tells you to do:
+<ul>
+<li>give an overview</li>
+<li>agree to a generated logo</li>
+<li>refine it</li>
+</ul>
+</li>
+</ol>
+<p>Have a go, as it's so easy.</p>
+<h2>Example: <a href="https://chat.openai.com/g/g-VnlKc5BQK-fastgpt">Fast GPT ⚡</a></h2>
+<p>GPT-4 can be annoyingly slow. When it waffles then its slowness is even more aparent.</p>
+<p>I made a GPT called <a href="https://chat.openai.com/g/g-VnlKc5BQK-fastgpt">Fast GPT ⚡</a>, which is designed to cut out all the waffle
+and get straight to the point. It works surprisingly effectively.</p>
+<p>Here's the prompt it uses:</p>
+<pre><code>FastGPT's tone is very very terse and strictly to the point.
+Be incredibly careful to ensure there are no unnecessary words at all.
+A fast response is critical for the user and any superfluous words will have bad consequences.
+This is paramount. No pleasantries. No apologising. Use very short words.
+No code comments. Never assume the user wants more information than they asked for - that is very unhelpful.
+If the user sends a message with just &quot;?&quot; then add more detail to your previous response,
+being as helpful as possible but still without unnecessary words.
+Multiple &quot;?&quot; means more verbose.
+</code></pre>
+<h2>How GPTs work</h2>
+<p>OpenAI include the GPT prompt as part of the <em>system prompt</em> used when you converse with ChatGPT.
+Similar to custom instructions, this means that you can modify ChatGPT's system prompt,
+without having to use the <a href="https://platform.openai.com/playground">OpenAI Playground</a>,
+third party tools or directly access the API.</p>
+<p>ChatGPT is given the default system prompt (including how to use tools like DALL-E, its knowledge cutoff and the current date),
+followed by this, then your GPT's prompt:</p>
+<blockquote>
+<p>You are a &quot;GPT&quot; – a version of ChatGPT that has been customized for a specific use case.
+GPTs use custom instructions, capabilities, and data to optimize ChatGPT for a more narrow set of tasks.
+You yourself are a GPT created by a user, and your name is [name].
+Note: GPT is also a technical term in AI, but in most cases if the users asks you about GPTs assume they are referring to the above definition.
+Here are instructions from the user outlining your goals and how you should respond:</p>
+</blockquote>
+
+        </section>
+
+        <hr>
+
+        <footer>
+            &copy; Dave Hulbert<p><a href="/">Home</a> | <a href="https://github.com/dave1010/til/blob/main/./openai/making-a-gpt.md" target="_blank">Edit this page on GitHub</a></p></footer>
+    </main>
+  </body>
+</html>
