@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <header>
+        <h1><a href="/">Dave Hulbert's Today I Learned (TIL)</a></h1>
+    </header>
+
+    <main>
+        <hr>
+        <section>
+            <h1>Distributing Python Packages on PyPI</h1>
+<p>I ran through <a href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">Packaging Python Projects</a>
+today to get <a href="https://github.com/dave1010/clipea">Clipea</a> installable with <code>pip install clipea-cli</code>.</p>
+<p>(I originally wrote Clipea in PHP to get it working quickly but someone kindly <a href="https://github.com/dave1010/clipea/pull/16">ported it</a> to Python.)</p>
+<p><code>pip</code> packages are hosted by the <a href="https://pypi.org/">Python Package Index (PyPI)</a>.</p>
+<p>Here's the overview of the steps I took.</p>
+<h2>Building</h2>
+<p>First you need to use a supported package format.
+There's a few ways to do this but <code>setuptools</code> and <code>setup.py</code> is really simple. Here's Clipea's:</p>
+<pre><code class="language-python">&quot;&quot;&quot;Setup file for clipea
+&quot;&quot;&quot;
+from setuptools import setup, find_packages
+
+with open('README.md', encoding='utf-8') as f:
+    long_description = f.read()
+
+setup(
+    name=&quot;clipea-cli&quot;,
+    version=&quot;0.1.0&quot;,
+    description=&quot; 📎🟢 Like Clippy but for the CLI. A blazing fast AI helper for your command line &quot;,
+    url=&quot;https://github.com/dave1010/clipea/&quot;,
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    author=&quot;Dave Hulbert&quot;,
+    author_email=&quot;dave1010@gmail.com&quot;,
+    keywords='cli, ai, assistant, automation',
+    license=&quot;MIT&quot;,
+    packages=find_packages(),
+    install_requires=[&quot;llm&quot;],
+    python_requires=&quot;&gt;=3.10&quot;,
+    package_data={&quot;clipea&quot;: [&quot;*.txt&quot;, &quot;clipea.zsh&quot;]},
+    entry_points={&quot;console_scripts&quot;: [&quot;clipea = clipea.__main__:clipea_main&quot;]},
+)
+</code></pre>
+<p>You can see I had to use the name &quot;clipea-cli&quot; as &quot;clipea&quot; was taken (actually clip-ea was taken but PyPI normalises names when comparing).</p>
+<p>You can then install it in development mode. This allows you to edit the package but also does all the normal setup like adding it to your path:</p>
+<pre><code class="language-bash">pip install -e .
+</code></pre>
+<h2>Packaging</h2>
+<p>If you're happy with <code>setup.py</code> then you can start packaging it:</p>
+<pre><code class="language-bash">python3 setup.py sdist
+</code></pre>
+<p>This will result in a file like <code>dist/clipea-0.1.0.tar.gz</code>. This is what's going to be hosted on PyPI.</p>
+<h3>Checking your package with a Virtual Environment</h3>
+<p>Ensure your the packge installs by creating a new Python virtual environment with <code>venv</code>.</p>
+<pre><code class="language-bash">mkdir clipea-test
+cd clipea-test
+python3 -m venv .
+source bin/activate
+</code></pre>
+<p>Then you can install your package with pip:</p>
+<pre><code class="language-bash">pip install path/to/dist/clipea-0.1.0.tar.gz
+</code></pre>
+<p>Ideally test it in different environments.</p>
+<h2>Set up PyPI</h2>
+<p>There's 2 separate versions of PyPI: the <a href="https://test.pypi.org/">test one</a> and the <a href="https://pypi.org/">live one</a>.
+Sign up to them both (they have separate logins and auth). There's a few steps to set up MFA and confirm
+your email address.</p>
+<p>Set up an API token in <a href="https://pypi.org/manage/account/#api-tokens">your PyPI account</a> and save the secret key.</p>
+<h2>Upload to test.pypi.org</h2>
+<p>Use <code>twine</code> to upload packages:</p>
+<pre><code class="language-bash">python3 -m twine upload --repository testpypi dist/clipea-0.1.0.tar.gz
+</code></pre>
+<p>Use <code>__token__</code> as the username and your API key as the password.
+Note that as soon as you upload a version of a package, you can't replace it, you have to bump the version number.</p>
+<h2>Test installing from test.pypi.org</h2>
+<p>OK, assuming you successfully uploaded your package, you should now be able to install it with <code>pip</code>.
+Delete and remake your virtual environment, just to be sure.</p>
+<p>Then install with something like this:</p>
+<pre><code class="language-bash">python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps --no-build-isolation clipea
+</code></pre>
+<p>Note that test.pypi.org won't have your dependencies (<code>llm</code> in my case), so you may need to install them
+normally with pip yourself first. Double check they're in your <code>setup.py</code> too.</p>
+<p>You may also need <code>wheel</code> and <code>setuptools</code>:</p>
+<pre><code class="language-bash">python3 -m pip install wheel setuptools
+</code></pre>
+<h2>Check the test PyPI page and final checks</h2>
+<p>At this point PyPI should will made a page for your package. You can see
+<a href="https://test.pypi.org/project/clipea/">Clipea's test package page here</a>.
+It took a couple of attempts to get the info right on the page.</p>
+<p>Also check things like version numbers in <code>setup.py</code>, Git tags, README.md, licence, security, etc.</p>
+<h2>Upload to pypi.org</h2>
+<p>Make sure the package is well tested, as this is the point of no return:</p>
+<pre><code class="language-bash">python3 -m twine upload dist/clipea-0.1.0.tar.gz
+</code></pre>
+<p>(Remember to use your API key for pypi.org, note test.pypi.org!)</p>
+<h2>Installing</h2>
+<p>If everything above worked then you should now be able to install your package with:</p>
+<pre><code class="language-bash">pip install clipea-cli
+</code></pre>
+<h2>Automating updates</h2>
+<p>You'll need to go through the build, test, distribute steps manually whenever you make a change.
+Use Github Actions to automate this. (One for another day)</p>
+
+        </section>
+
+        <hr>
+
+        <footer>
+            <p>
+                &copy; Dave Hulbert<br><a href="/">Home</a>
+                    |
+                    <a href="https://github.com/dave1010/til/blob/main/./python/distributing-python-packages-on-pypi.md" target="_blank">Edit this page on GitHub</a></p>
+        </footer>
+    </main>
+  </body>
+</html>
