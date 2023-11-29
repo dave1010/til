@@ -28,7 +28,7 @@ Docker Compose [v2.22 was released in Sept 2023](https://github.com/docker/compo
 [file watching capability](https://docs.docker.com/compose/file-watch/).
 
 This allows you to easily sync just your source files to the container and then trigger commands when they change.
-This is handy as it means you can do `npm install` or `composer install` on yur host and in the container and
+This is handy as it means you can do `npm install` or `composer install` on your host and in the container and
 they can have platform-specific dependencies.
 
 Here it is in the compose file in the [`develop` section](https://docs.docker.com/compose/compose-file/develop/):
