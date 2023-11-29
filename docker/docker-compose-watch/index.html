@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <header>
+        <h1><a href="/">Dave Hulbert's Today I Learned (TIL)</a></h1>
+    </header>
+
+    <main>
+        <hr>
+        <section>
+            <h1>Using Docker Compose Watch instead of Bind Mounts</h1>
+<h2>Docker Volumes</h2>
+<p>The standard way to keep files in sync between a Docker container and your host is using
+volumes. These use (normally) use <a href="https://docs.docker.com/storage/bind-mounts/">bind mounts</a> under the hood.</p>
+<p>You can do this on the command line:</p>
+<pre><code>docker run -v /path/to/local/dir:/path/in/container [other-options] [image-name]
+</code></pre>
+<p>Or in a <code>docker-compose.yml</code> file:</p>
+<pre><code class="language-yaml">version: '3.3'
+services:
+  your-service:
+    image: your-image
+    volumes:
+      - /path/to/local/dir:/path/in/container
+</code></pre>
+<h2>Watch</h2>
+<p>Docker Compose <a href="https://github.com/docker/compose/releases/tag/v2.22.0">v2.22 was released in Sept 2023</a> and includes a new
+<a href="https://docs.docker.com/compose/file-watch/">file watching capability</a>.</p>
+<p>This allows you to easily sync just your source files to the container and then trigger commands when they change.
+This is handy as it means you can do <code>npm install</code> or <code>composer install</code> on yur host and in the container and
+they can have platform-specific dependencies.</p>
+<p>Here it is in the compose file in the <a href="https://docs.docker.com/compose/compose-file/develop/"><code>develop</code> section</a>:</p>
+<pre><code class="language-yaml">version: '3.3'
+services:
+  your-service:
+    image: your-image
+    volumes:
+      - /path/to/local/dir:/path/in/container
+    develop:
+      watch:
+        - path: src/
+          target: /app/src/
+          action: sync
+</code></pre>
+<p>You can also use other actions:</p>
+<ul>
+<li><code>rebuild</code> will make Docker rebuild the container when the files change</li>
+<li><code>sync+restart</code> will make Docker sync and then reboot the container</li>
+</ul>
+<p>Once you have this in your compose file, just run the new command:</p>
+<pre><code>docker compose watch
+</code></pre>
+<p>and then it will keep the paths in sync, similar to if you had manually set up
+<a href="https://linux.die.net/man/1/inotifywait"><code>inotifywait</code></a> or <a href="https://github.com/emcrisostomo/fswatch"><code>fswatch</code></a>.</p>
+
+        </section>
+
+        <hr>
+
+        <footer>
+            <p>
+                &copy; Dave Hulbert<br><a href="/">Home</a>
+                    |
+                    <a href="https://github.com/dave1010/til/blob/main/./docker/docker-compose-watch.md" target="_blank">Edit this page on GitHub</a></p>
+        </footer>
+    </main>
+  </body>
+</html>
