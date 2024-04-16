@@ -6,7 +6,7 @@ I'm [Dave](https://dave.engineer/) and these are a few of the things
 I've learned that aren't quite big enough for a blog post.
 I'm always learning, so if you spot anything wrong then please submit a
 [PR](https://github.com/dave1010/til/pulls) or raise an [issue](https://github.com/dave1010/til/issues).
-Find out [how this site works](til/how-this-works.md).
+Find out [how this site works](til/how-this-works/).
 
 You may also want to read things that are big enough for a blog post
 on my [blog](https://blog.dave.engineer/).
