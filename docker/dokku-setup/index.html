@@ -70,6 +70,9 @@ dokku config:get $APP_NAME DATABASE_URL
 # set env vars
 dokku config:set $APP_NAME APP_ENV=prod
 </code></pre>
+<p>Once deployed, you may need to set up the app</p>
+<pre><code class="language-bash">dokku enter $APP_NAME doctrine:schema:create
+</code></pre>
 <h2>Debugging</h2>
 <pre><code class="language-bash"># interactive shell
 dokku enter $APP_NAME
