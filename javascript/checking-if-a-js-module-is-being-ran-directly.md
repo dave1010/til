@@ -1,8 +1,19 @@
-# TIL: Making JavaScript Behave Like Python for Script and Module Distinctions
+# Making JavaScript Behave Like Python for Script and Module Distinctions with Bun
 
-While working on a JavaScript project using the `chalk` library to stylize terminal output, I discovered an interesting nuance about handling JavaScript files as both importable modules and executable scripts, much like Python's `if __name__ == "__main__"` idiom.
+While working on a JavaScript project using the `chalk` library to stylize terminal output, I found an interesting thing about handling JavaScript files as both importable modules and executable scripts, much like Python's `if __name__ == "__main__"`.
 
-Here's a condensed version of what I learned and how I implemented it in my project:
+I wanted to be able to quickly test and debug a module like this:
+
+```bash
+bun run src/util/styles.ts
+# shows helpful debug info
+
+bun run src/index.ts
+# imports src/util/styles.ts but doesn't show debugging info
+```
+
+## The Solution
+Here's the code that makes it work:
 
 ```javascript
 import chalk from 'chalk';
@@ -28,9 +39,10 @@ export default styles;
 In Python, it's common to use `if __name__ == "__main__"` to determine whether a script is being run standalone or being imported. I wanted to achieve something similar in JavaScript to allow for both importing styles for use in other parts of an application and running the script directly to test the styles.
 
 ### The JavaScript Way
-In JavaScript, especially when using ES Modules, you can use `import.meta.main`. This property is true if the script is run directly, which seemed like the perfect counterpart to Python’s approach. However, when I was compiling my JavaScript code using Bun (a modern JavaScript runtime like Node.js), just using `import.meta.main` wasn't sufficient due to the way Bun handles module compilation.
+In JavaScript, especially when using ES Modules, you can use [`import.meta.main`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import.meta). This property is true if the script is run directly, which seemed like the perfect counterpart to Python’s approach.
 
-### The Solution
-To accurately determine the context when compiled, I added an extra check: `import.meta.file === 'chalkStyles.ts'`. This check ensures that not only is the file executed as the main entry point, but it is also specifically the `chalkStyles.ts` file, avoiding any misinterpretation when multiple files are involved in the compilation.
+However, when I was compiling my JavaScript code using [Bun](https://bun.sh/) (a modern JavaScript runtime like Node.js), just using `import.meta.main` wasn't sufficient due to the way Bun handles module compilation.
 
-Implementing this dual check allowed me to flexibly use the `styles` module while confidently testing it as a standalone script. This approach highlights a subtle but significant difference in handling modular JavaScript code, especially when using modern tools like Bun that affect the execution context. 
+To accurately determine the context when compiled, I added an extra check: `import.meta.file === 'styles.ts'`. This check ensures that not only is the file executed as the main entry point, but it is also specifically the `chalkStyles.ts` file, avoiding any misinterpretation when multiple files are involved in the compilation.
+
+Implementing this dual check allowed me to flexibly use the `styles` module while quickly testing it as a standalone script.
