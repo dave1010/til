@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <header>
+        <h1><a href="/">Dave Hulbert's Today I Learned (TIL)</a></h1>
+    </header>
+
+    <main>
+        <hr>
+        <section>
+            <h1>TIL: Making JavaScript Behave Like Python for Script and Module Distinctions</h1>
+<p>While working on a JavaScript project using the <code>chalk</code> library to stylize terminal output, I discovered an interesting nuance about handling JavaScript files as both importable modules and executable scripts, much like Python's <code>if __name__ == &quot;__main__&quot;</code> idiom.</p>
+<p>Here's a condensed version of what I learned and how I implemented it in my project:</p>
+<pre><code class="language-javascript">import chalk from 'chalk';
+
+const styles = {
+    error: chalk.bold.underline.red,
+    warning: chalk.italic.inverse.hex('#FFA500'),
+    info: chalk.blue
+};
+
+// Ensuring the file behaves as intended when compiled with Bun
+if (import.meta.main &amp;&amp; import.meta.file === 'chalkStyles.ts') {
+    // Demonstrating the styles in the console
+    for (const [styleName, style] of Object.entries(styles)) {
+        console.log(`${style('This is a test!')}\t${styleName}`);
+    }
+}
+
+export default styles;
+</code></pre>
+<h3>Background</h3>
+<p>In Python, it's common to use <code>if __name__ == &quot;__main__&quot;</code> to determine whether a script is being run standalone or being imported. I wanted to achieve something similar in JavaScript to allow for both importing styles for use in other parts of an application and running the script directly to test the styles.</p>
+<h3>The JavaScript Way</h3>
+<p>In JavaScript, especially when using ES Modules, you can use <code>import.meta.main</code>. This property is true if the script is run directly, which seemed like the perfect counterpart to Python’s approach. However, when I was compiling my JavaScript code using Bun (a modern JavaScript runtime like Node.js), just using <code>import.meta.main</code> wasn't sufficient due to the way Bun handles module compilation.</p>
+<h3>The Solution</h3>
+<p>To accurately determine the context when compiled, I added an extra check: <code>import.meta.file === 'chalkStyles.ts'</code>. This check ensures that not only is the file executed as the main entry point, but it is also specifically the <code>chalkStyles.ts</code> file, avoiding any misinterpretation when multiple files are involved in the compilation.</p>
+<p>Implementing this dual check allowed me to flexibly use the <code>styles</code> module while confidently testing it as a standalone script. This approach highlights a subtle but significant difference in handling modular JavaScript code, especially when using modern tools like Bun that affect the execution context.</p>
+
+        </section>
+
+        <hr>
+
+        <footer>
+            <p>
+                &copy; Dave Hulbert<br><a href="/">Home</a>
+                    |
+                    <a href="https://github.com/dave1010/til/blob/main/./javascript/checking-if-a-js-module-is-being-ran-directly.md" target="_blank">Edit this page on GitHub</a></p>
+        </footer>
+    </main>
+  </body>
+</html>
