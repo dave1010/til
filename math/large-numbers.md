@@ -2,13 +2,21 @@
 
 I was talking to my kids about large numbers like a googol (10^100) and a googolplex. I knew bits and pieces about bigger number but not enough to confidently explain it until now.
 
+# Addition, multiplication, iteration and tetration
+
+First, let's see how operations are just repeats of the previous operation.
+
+- multiplication: 3×3 is just releated addition, 3+3+3 = 9
+- exponention: 3^3 is just repeated multiplication, 3×3×3 = 27
+- tetration: 3↑↑3 is just repeated exponention, 3^3^3 = about 8 billion 
+
 ## Writing a Googolplex
 
 A googolplex is an enormous number defined as 10^10^100. That's a 1 followed by a googol (10^100) zeros! It's impossible to write down in normal notation due to its sheer size.
 
 ## Beyond Exponential Notation
 
-There are numbers so bug that they can't be expressed using exponential notation. These require other methods, such as [Knuth's up-arrow notation](https://en.wikipedia.org/wiki/Knuth%27s_up-arrow_notation), which allows us to describe numbers that are exponentially bigger than a googolplex.
+There are numbers so big that they can't be expressed using exponential notation. These require other methods, such as [Knuth's up-arrow notation](https://en.wikipedia.org/wiki/Knuth%27s_up-arrow_notation), which allows us to describe numbers that are exponentially bigger than a googolplex.
 
 
 - **3↑↑3** (3 double arrow 3) signifies a number where 3 is raised to the power of itself, repeated 27 times (since 3^3 = 27). Three to the power of three to the power of three to the power of three... (27 times). This results in 7,625,597,484,987 - about 8 billion.
