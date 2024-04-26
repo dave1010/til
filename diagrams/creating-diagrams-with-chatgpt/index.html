@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <header>
+        <h1><a href="/">Dave Hulbert's Today I Learned (TIL)</a></h1>
+    </header>
+
+    <main>
+        <hr>
+        <section>
+            <h1>Creating Diagrams with ChatGPT and Mermaid.live</h1>
+<p>It turns out that ChatGPT (and other large language models) are great at generating diagrams as well as text.</p>
+<p>If you ask ChatGPT to make a diagram then it might try to use Dall-e and draw one from scratch. Dall-e and other image generators aren't good at diagrams at all.
+But if you ask ChatGPT right, it can generate a good editable first draft diagram.</p>
+<p>ChatGPT has also been trained on the <a href="https://mermaid.js.org/">Mermaid Chart</a> syntax. There's lots of tools that can display Mermaid charts but the quickest and easiest is <a href="https://mermaid.live/">Mermaid.live</a>.</p>
+<h2>Using Mermaid syntax and Mermaid.live</h2>
+<ol>
+<li>Enter something like <code>mermaid diagram for a user MFA setup process</code> into ChatGPT. <a href="https://chat.openai.com/share/06a0d00a-56a0-4c52-abe4-d8ba89504282">Demo</a></li>
+<li>Copy the code it generates</li>
+<li>Paste it into <a href="https://mermaid.live/">Mermaid.live</a>. <a href="https://mermaid.live/edit#pako:eNp1UkFuwjAQ_Iq15xRB0sTgQyXUpjekqBGXKhfXWcAqsVPboaWIv9dOQAJBc7J2Z2ZnJ3sAoWsEBha_OlQCXyRfG95Uiviv5cZJIVuuHFkSbsnSorltlaFV7q3DO7w8NPOGyy0p0ezu8YsAKTZaYaWG7vLh6alkZC4EWksWr3Ni0XWtZ61xQJQesWTkLdi2jmA_wKvLlRTcSX0hlDPyvEHxOYCGej7QC6N3ssYrIgmJXNnIlUPzH-ZkJL8wgHVEzMlYG9Yiqms-zpufRM-jbwFBsWA-LVWTclGSb-k2_00vzjEIlDsM8DvOg8iN4T7vC8NDwEI37Radh0IEDRq_Ve2v4xCoFbgNNlgB888aV7zbugoqdfRQ3jld7pUA5kyHEXRtzd35mICt-Nb6qv_bwA7wAyymyYgm8WxKx5N4msaPaQT7UJ6NkllMU5plGaWT6TGCX629wniU0emMjh_TbBInSRpHgLV02iyG--3PuJ_w3uODjeMfY0Tp7A">Demo</a></li>
+<li>Edit it in Mermaid.live. Change themes, download or export</li>
+</ol>
+<p>Here's the code it makes:</p>
+<pre><code>sequenceDiagram
+    participant U as User
+    participant S as System
+    participant E as Email Server
+    participant P as Phone
+
+    U-&gt;&gt;S: Access MFA setup page
+    S-&gt;&gt;U: Request email verification
+    U-&gt;&gt;E: Check email
+    E-&gt;&gt;U: Provide verification code
+    U-&gt;&gt;S: Enter verification code
+    S-&gt;&gt;U: Email verified, request phone number
+    U-&gt;&gt;S: Provide phone number
+    S-&gt;&gt;P: Send SMS with verification code
+    P-&gt;&gt;U: Receive SMS
+    U-&gt;&gt;S: Enter SMS code
+    S-&gt;&gt;U: Phone verified, setup complete
+</code></pre>
+<h2>Mermaid supports</h2>
+<ul>
+<li>Flowchart</li>
+<li>Sequence Diagram</li>
+<li>Class Diagram</li>
+<li>State Diagram</li>
+<li>Entity Relationship Diagram</li>
+<li>User Journey</li>
+<li>Gantt</li>
+<li>Pie Chart</li>
+<li>Quadrant Chart</li>
+<li>Requirement Diagram</li>
+<li>Gitgraph (Git) Diagram</li>
+<li>C4 Diagram</li>
+<li>Mindmaps</li>
+<li>Timeline</li>
+<li>Sankey</li>
+<li>XYChart</li>
+<li>Block Diagram</li>
+</ul>
+<h2>Examples</h2>
+<h3>Sequence diagram</h3>
+<p><a href="https://chat.openai.com/share/06a0d00a-56a0-4c52-abe4-d8ba89504282"><code>mermaid diagram for a user MFA setup process</code></a> <a href="https://mermaid.live/edit#pako:eNp1UkFuwjAQ_Iq15xQREwj1AQm16Q0pasSlysV1FrBK7NR2aCni77UTkEBATtbuzOzsZA8gdIXAwOJ3i0rgq-Rrw-tSEf813DgpZMOVI0vCLVlaNLetIrSKvXV4h5eFZlZzuSUFmt09fh4g-UYrLFXfXT7NZgUjcyHQWrJ4mxOLrm08a409ovCIJSPvwbZ1BLsBXl2upOBO6guhjJGXDYqvHtTXs56eG72TFV4RSUjkykamHJpHmJOR7MIAVhExJ2NNWIuotv48b34SPY--BQTFnPm0VEWKRUF-pNs8mp6fYxAodxjgd5wHkRvDXd4XhvuAha6bLToPhQhqNH6ryl_HIVBLcBussQTmnxWueLt1JZTq6KG8dbrYKwHMmRYjaJuKu_MxAVvxrfVV_7eBHeAXWDIaTNLhZEJpOo6n8XAUwR5YPB0P6HBKn9N44us0To4R_GntFeLBeEqTZ5qkwzSJaUojwEo6bRb9_XZn3E346PDBxvEfV9rpxA">Chart</a></p>
+<h3>Flow chart</h3>
+<p><a href="https://chat.openai.com/share/50ea95ff-9d38-47cb-8bd5-64fbd5877a89"><code>mermaid flowcahrt for an ecommerce refund process</code></a> <a href="https://mermaid.live/edit#pako:eNp1U91v0zAQ_1csP2dVk6Zploch1myjIMY0JiFo9mDiS2vR2MEfdCXq_84lTqYWhJ9O5_t93J3d0lJxoBmtdmpfbpm25CkvJMHzdr10xqoaNHmEnw6MNRhUTvJncnFxRa7blSF2C0T7W7IXdivkkLJOS8xIrvZvjp7wGmHkK5gevWy_MA9vtOKutISzmm2AE6WJVJbgLQdTavEd-BnDveoJVmtvhuQgBfCMfHKWqOpc-tnjlqfK-XolhRXMwtAOedCqBGNOiweRm39cOukMmmQIw16VFhsh2Y40rPzBMNyMVm_OJE9yA_P7v-0_jALGz0CD5wQ--Mp73G27VLISun51pKEE0dhB97bTeOxSv5CnQ9yth_7G7Z0U3uOgz4rf_c9WtxI_2ldDdz3iw4hYGeM6BHKK6kDGx4PFNKAY1ExwfGhtBy4ozrSGgmYYcqiY29mCFvKIpcxZ9fkgS5pZ7SCgruG4q1ywjWY1zSq2M5htmKRZS19oFs8myWKaJFG0mIdpOJ0F9ECzMJ1PomkaXS7CBPNRGB8D-lspZAgn8zSKL6M4TWdpPE-SMKDAhVX6o_8L_ZfoJb71gM7H8Q8c_gBz">Chart</a></p>
+<h3>Gantt chart</h3>
+<p><a href="https://chat.openai.com/share/6c95d0ec-a104-4655-a2da-0034221f41b2"><code>mermaid gantt chart for web app project: start today, 5 fortnightly sprints, milestone at the end</code></a> <a href="https://mermaid.live/edit#pako:eNp1ksFugzAMhl8l8jlUJIQWuE1CvSFN62HaxCVr3DYSJAhCt67quy9At7FV9cly_u93ZPsMW6sQMthL41xpiA8lHa5tW0tHyIuPoCiCPJ_enHYVkime8Y08NA3J8YiVbWo0jmy2B1R9haWZ9B1unbaGPFbSGG32U3XTtNqLGfmNTFmDdGyPHaOEh1wEoQj4khIm1B-OzznpGxwH0nOcErlz2F49_nPRnPvJvDaacfyWE_c4MeOiWy6-x8UzTly5v_MqdIWd8yOZymttZEWe8Kjx_duw9pKZj_dk3gYo1Oh3p5Vf6nmgS3AHrLGEzKcKd7KvXAmluXip7J3dnMwWMtf2SKFvhuXnWu5bWUO2k1Xnq400kJ3hA7I0XKSJYDEXIoyTJYUTZJyli5ClUSSWcbJKeXqh8Gmtx9lCpKngbNhlkrBVvKKASjvbFtPRjbc3-r-OwPCJyxc6ELiW">Chart</a></p>
+<h2>My old approach: Using ChatGPT and Python</h2>
+<p>For completeness, <a href="https://medium.com/@dave1010/exploring-chatgpt-code-interpreter-5d0872d67058">ChatGPT's code interpreter can run Python</a>.
+This includes access to various Python charting libraries like:</p>
+<ul>
+<li>Matplotlib</li>
+<li>Graphviz</li>
+<li>Pydot</li>
+<li>NetworkX</li>
+<li>Plotly</li>
+<li>Bokeh</li>
+<li>Seaborn</li>
+</ul>
+<p>These work fairly well, as ChatGPT is trained on writing Pytnon code to generate these. Graphviz is especially good, as it works with the DOT language, which ChatGPT is trained on.</p>
+<p>I generally find these more clunky to edit and iterate on with ChatGPT.</p>
+
+        </section>
+
+        <hr>
+
+        <footer>
+            <p>
+                &copy; Dave Hulbert<br><a href="/">Home</a>
+                    |
+                    <a href="https://github.com/dave1010/til/blob/main/./diagrams/creating-diagrams-with-chatgpt.md" target="_blank">Edit this page on GitHub</a></p>
+        </footer>
+    </main>
+  </body>
+</html>
