@@ -72,41 +72,10 @@ hr {
     margin-bottom: 1em;
 }
 
-/* Style for code elements */
-pre {
-    background-color: var(--color-midnight-blue);
-    color: var(--color-white);
-    border: 1px dotted var(--color-pink-faded);
-    padding: 0.5em;
-    font-family: 'Courier New', Courier, monospace;
-    text-wrap: wrap;
-}
-
-pre {
-    overflow-x: auto;
-    margin-top: 0;
-    margin-bottom: 1em;
-    background-color: var(--color-black);
-}
-
-pre:hover {
-    border: 1px solid var(--color-pink-faded);    
-}
-
-pre code {
-    border: none;
-    background: none;
-}
 
 code {
-    font-size: 0.95em;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: var(--color-black);
-    xpadding: 5px;
-}
-
-pre:hover {
-    background-color: var(--color-midnight-blue);    
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace; /* this is the default */
+    background-color: var(#27212e);
 }
 
 main {
@@ -125,6 +94,8 @@ main > section {
 }
 
 
+
+/*homepage tags*/
 .tags li {
     display: inline;
 }
@@ -194,8 +165,15 @@ main > section {
      margin: 0.5em 0; /* this is the default */
      overflow: auto; /* this is standard */
      border-radius: 0.5em;
+     border: 1px dotted var(--color-pink-faded);
  }
  
+ pre[class*="language-"]:hover {
+    border: 1px solid var(--color-pink-faded);    
+}
+
+
+
  /* Properties specific to inline code */
  :not(pre) > code[class*="language-"] {
      padding: 0.2em 0.3em;
@@ -259,8 +237,7 @@ main > section {
      color: #ffffff;
  }
  
- /* The following rules are pretty similar across themes, but feel free to adjust them */
- .token.bold {
+  .token.bold {
      font-weight: bold;
  }
  
