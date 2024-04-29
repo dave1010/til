@@ -23,18 +23,16 @@
 <p>The coolest thing about TypeScript is that it's a superset of JavaScript. This means that your JS code is already TS! You can incrementally add types and other TypeScript syntax as you go along. Just rename your <code>.js</code> file to <code>.ts</code>.</p>
 <h3>A Simple Example</h3>
 <p>Here’s a quick TypeScript snippet demonstrating a function with typed parameters and return type:</p>
-<pre><code class="language-typescript">function greet(person: string, date: Date): string {
-    return `Hello ${person}, today is ${date.toDateString()}!`;
-}
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">function</span> <span class="token function">greet</span><span class="token punctuation">(</span>person<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> date<span class="token operator">:</span> Date<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Hello </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>person<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">, today is </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>date<span class="token punctuation">.</span><span class="token function">toDateString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">!</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-console.log(greet(&quot;Dave&quot;, new Date()));
-</code></pre>
+<span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">greet</span><span class="token punctuation">(</span><span class="token string">"Dave"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>TypeScript has other features too, like enums, tuples and generics.</p>
 <h3>Setting Up TypeScript</h3>
 <p>To get started with TypeScript, install it via npm, initialize a new project, and start converting your JavaScript files to TypeScript files:</p>
-<pre><code class="language-bash">npm install -g typescript
-tsc --init
-</code></pre>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> typescript
+tsc <span class="token parameter variable">--init</span></code></pre>
 <p>This will create a new <code>tsconfig.json</code> file. You can edit your <code>tsconfig.json</code> to set up the compiler options suited for your project, and run <code>tsc</code> to compile your TypeScript code to JavaScript.</p>
 
         </section>

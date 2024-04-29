@@ -22,21 +22,20 @@ These are now widely supported across all major browsers (see the compatibility 
 Initially, I thought things like this were only available in pre-processors like Sass.</p>
 <h2>Example</h2>
 <p>For instance, the colours for this web page. I used CSS variables to define a color scheme:</p>
-<pre><code class="language-css">:root {
-    --color-midnight-blue: #10151e;
-    --color-white: #d4d6e1;
-}
+<pre class="language-css"><code class="language-css"><span class="token selector">:root</span> <span class="token punctuation">{</span>
+    <span class="token property">--color-midnight-blue</span><span class="token punctuation">:</span> #10151e<span class="token punctuation">;</span>
+    <span class="token property">--color-white</span><span class="token punctuation">:</span> #d4d6e1<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-body {
-    background-color: var(--color-midnight-blue);
-    color: var(--color-white);
-}
+<span class="token selector">body</span> <span class="token punctuation">{</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-midnight-blue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-white<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-pre {
-    background-color: var(--color-white);
-    color: var(--color-midnight-blue);
-}
-</code></pre>
+<span class="token selector">pre</span> <span class="token punctuation">{</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-white<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-midnight-blue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <p>This not only makes the CSS more readable but also allows for easier theme management and dynamic styling.</p>
 <p>They're not just for colours and could be used for:</p>
 <ul>

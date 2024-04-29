@@ -27,10 +27,10 @@
 <li>Don't care about. Passed around for typehinting.</li>
 <li>No behaviour</li>
 </ul>
-<pre><code class="language-php">&lt;?php
-class Foo { public function __construct(Dummy $dummy) {} }
-new Foo((new \Prophecy\Prophet)-&gt;prophesize(Dumnmy::class)-&gt;reveal());
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">Foo</span> <span class="token punctuation">{</span> <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token class-name type-declaration">Dummy</span> <span class="token variable">$dummy</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">}</span>
+<span class="token keyword">new</span> <span class="token class-name">Foo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name class-name-fully-qualified"><span class="token punctuation">\</span>Prophecy<span class="token punctuation">\</span>Prophet</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">prophesize</span><span class="token punctuation">(</span><span class="token class-name static-context">Dumnmy</span><span class="token operator">::</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">reveal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
 <h2>Stub</h2>
 <ul>
 <li>Has (basic) behaviour but no expectations (i.e. injects input into SUT but never handles output)</li>
@@ -38,51 +38,51 @@ new Foo((new \Prophecy\Prophet)-&gt;prophesize(Dumnmy::class)-&gt;reveal());
 <li>Promises it will always return the same thing (<code>willReturn()</code>)</li>
 <li>Doesn't have to be called</li>
 </ul>
-<pre><code class="language-php">&lt;?php
-function baz(Stub $stub) { return $stub-&gt;foo(123) === 'bar';}
-$stub = (new \Prophecy\Prophet)-&gt;prophesize(Stub::class);
-$stub-&gt;foo(123)-&gt;wilLReturn('bar');
-baz($stub-&gt;reveal());
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">function</span> <span class="token function-definition function">baz</span><span class="token punctuation">(</span><span class="token class-name type-declaration">Stub</span> <span class="token variable">$stub</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token variable">$stub</span><span class="token operator">-></span><span class="token function">foo</span><span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string single-quoted-string">'bar'</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+<span class="token variable">$stub</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name class-name-fully-qualified"><span class="token punctuation">\</span>Prophecy<span class="token punctuation">\</span>Prophet</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">prophesize</span><span class="token punctuation">(</span><span class="token class-name static-context">Stub</span><span class="token operator">::</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$stub</span><span class="token operator">-></span><span class="token function">foo</span><span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">wilLReturn</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'bar'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">baz</span><span class="token punctuation">(</span><span class="token variable">$stub</span><span class="token operator">-></span><span class="token function">reveal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
 <h2>Mock</h2>
 <ul>
 <li>Define predictions (<code>shouldBeCalled()</code>), not promises</li>
 <li>Verifies input from SUT</li>
 </ul>
-<pre><code class="language-php">&lt;?php
-function foo(Mock $mock) { $mock-&gt;bar(123); }
-$prophet = new \Prophecy\Prophet;
-$mock = $prophet-&gt;prophesize(Mock::class);
-$mock-&gt;bar(123)-&gt;shouldBeCalled();
-foo($mock-&gt;reveal());
-$prophet-&gt;checkPredictions();
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">function</span> <span class="token function-definition function">foo</span><span class="token punctuation">(</span><span class="token class-name type-declaration">Mock</span> <span class="token variable">$mock</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token variable">$mock</span><span class="token operator">-></span><span class="token function">bar</span><span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token variable">$prophet</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name class-name-fully-qualified"><span class="token punctuation">\</span>Prophecy<span class="token punctuation">\</span>Prophet</span><span class="token punctuation">;</span>
+<span class="token variable">$mock</span> <span class="token operator">=</span> <span class="token variable">$prophet</span><span class="token operator">-></span><span class="token function">prophesize</span><span class="token punctuation">(</span><span class="token class-name static-context">Mock</span><span class="token operator">::</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$mock</span><span class="token operator">-></span><span class="token function">bar</span><span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">shouldBeCalled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">foo</span><span class="token punctuation">(</span><span class="token variable">$mock</span><span class="token operator">-></span><span class="token function">reveal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$prophet</span><span class="token operator">-></span><span class="token function">checkPredictions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
 <h2>Spy</h2>
 <ul>
 <li>Records behaviour</li>
 <li>Assertions happen aftwerwards (<code>shouldHaveBeenCalled()</code>)</li>
 </ul>
-<pre><code class="language-php">&lt;?php
-function foo(Spy $spy) { $spy-&gt;bar(123); }
-$spy = (new \Prophecy\Prophet)-&gt;prophesize(Spy::class);
-foo($spy-&gt;reveal());
-$spy-&gt;bar(123)-&gt;shouldHaveBeenCalled();
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">function</span> <span class="token function-definition function">foo</span><span class="token punctuation">(</span><span class="token class-name type-declaration">Spy</span> <span class="token variable">$spy</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token variable">$spy</span><span class="token operator">-></span><span class="token function">bar</span><span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token variable">$spy</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name class-name-fully-qualified"><span class="token punctuation">\</span>Prophecy<span class="token punctuation">\</span>Prophet</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">prophesize</span><span class="token punctuation">(</span><span class="token class-name static-context">Spy</span><span class="token operator">::</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">foo</span><span class="token punctuation">(</span><span class="token variable">$spy</span><span class="token operator">-></span><span class="token function">reveal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$spy</span><span class="token operator">-></span><span class="token function">bar</span><span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">shouldHaveBeenCalled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
 <h2>Fake</h2>
 <ul>
 <li>Return data depending on input</li>
 <li>Used to simplify a dependency. E.g. web service, DB, repository</li>
 <li>Used to isolate SUT</li>
 </ul>
-<pre><code class="language-php">&lt;?php
-interface WebServiceInterface { public function strtoupper($data); }
-class RealWebService implements WebServiceInterface {
-    public function strtoupper($data) { return file_get_contents('api.com/strtoupper/'.$data); }
-}
-class FakeWebService implements WebServiceInterface {
-    public function strtoupper($data) { return strtoupper($data); }
-}
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">interface</span> <span class="token class-name-definition class-name">WebServiceInterface</span> <span class="token punctuation">{</span> <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">strtoupper</span><span class="token punctuation">(</span><span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">RealWebService</span> <span class="token keyword">implements</span> <span class="token class-name">WebServiceInterface</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">strtoupper</span><span class="token punctuation">(</span><span class="token variable">$data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'api.com/strtoupper/'</span><span class="token operator">.</span><span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">FakeWebService</span> <span class="token keyword">implements</span> <span class="token class-name">WebServiceInterface</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">strtoupper</span><span class="token punctuation">(</span><span class="token variable">$data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">strtoupper</span><span class="token punctuation">(</span><span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></code></pre>
 <h1>How mocking helps you follow SOLID principles</h1>
 <ul>
 <li>lots of mocks means <em>SRP</em> violation. Don't fake parts of objects: decouple them</li>

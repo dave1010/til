@@ -18,17 +18,17 @@
 <p>date:   2014-12-15 21:14:07</p>
 <p>In PHP, Traits can't implement interfaces. They can, however, include abstract methods. These methods then need to be implemented by the concrete class that implements the trait. This allows a trait to provide some boilerplate implementation that depends on an concrete implementation. This isn't always a good idea (it's verging on violating the <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle">Dependency Inversion Principle</a> but it's better than a trait attempting to use a method that has no contract.</p>
 <p>Example:</p>
-<pre><code class="language-php">&lt;?php
-trait LoggerTrait
-{
-    abstract public function log($level, $message, array $context = array());
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">trait</span> <span class="token class-name-definition class-name">LoggerTrait</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">abstract</span> <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">log</span><span class="token punctuation">(</span><span class="token variable">$level</span><span class="token punctuation">,</span> <span class="token variable">$message</span><span class="token punctuation">,</span> <span class="token keyword type-hint">array</span> <span class="token variable">$context</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-    public function error($message, array $context = array())
-    {
-        $this-&gt;log(LogLevel::ERROR, $message, $context);
-    } 
-}
-</code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">error</span><span class="token punctuation">(</span><span class="token variable">$message</span><span class="token punctuation">,</span> <span class="token keyword type-hint">array</span> <span class="token variable">$context</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token variable">$this</span><span class="token operator">-></span><span class="token function">log</span><span class="token punctuation">(</span><span class="token class-name static-context">LogLevel</span><span class="token operator">::</span><span class="token constant">ERROR</span><span class="token punctuation">,</span> <span class="token variable">$message</span><span class="token punctuation">,</span> <span class="token variable">$context</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> 
+<span class="token punctuation">}</span>
+</span></code></pre>
 
         </section>
 

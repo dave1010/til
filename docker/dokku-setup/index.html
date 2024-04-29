@@ -19,67 +19,60 @@
 <p>Out the box Dokku image from DigitalOcean: https://marketplace.digitalocean.com/apps/dokku</p>
 <h2>Locally</h2>
 <p>Git setup:</p>
-<pre><code class="language-bash">DOKKU_HOST=ssh.example.com
-APP_NAME=amazing-app
+<pre class="language-bash"><code class="language-bash"><span class="token assign-left variable">DOKKU_HOST</span><span class="token operator">=</span>ssh.example.com
+<span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span>amazing-app
 
-git remote add dokku dokku@$DOKKU_HOST:$APP_NAME
-</code></pre>
+<span class="token function">git</span> remote <span class="token function">add</span> dokku dokku@<span class="token variable">$DOKKU_HOST</span><span class="token builtin class-name">:</span><span class="token variable">$APP_NAME</span></code></pre>
 <h2>Project structure</h2>
 <h3>PHP</h3>
 <p>Symfony defaults to <code>./public</code>.</p>
-<pre><code class="language-bash">composer require symfony/apache-pack
-echo 'web: heroku-php-apache2 public/' &gt; Procfile
-</code></pre>
+<pre class="language-bash"><code class="language-bash"><span class="token function">composer</span> require symfony/apache-pack
+<span class="token builtin class-name">echo</span> <span class="token string">'web: heroku-php-apache2 public/'</span> <span class="token operator">></span> Procfile</code></pre>
 <h2>Deployment</h2>
-<pre><code class="language-bash">git push dokku main
-</code></pre>
+<pre class="language-bash"><code class="language-bash"><span class="token function">git</span> push dokku main</code></pre>
 <h2>Setting up a Dokku host</h2>
 <h3>Prerequesits</h3>
 <ol>
 <li>Install Dokku on a server. Eg <a href="https://marketplace.digitalocean.com/apps/dokku">DigitalOcean 1-click</a>.</li>
 <li>Add a wildcard A record domain. If you're using Cloudflare then add proxying.</li>
 </ol>
-<pre><code class="language-bash">ssh root@$DOKKU_HOST
-YOUR_NAME=dave
-DOMAIN=example.com
+<pre class="language-bash"><code class="language-bash"><span class="token function">ssh</span> root@<span class="token variable">$DOKKU_HOST</span>
+<span class="token assign-left variable">YOUR_NAME</span><span class="token operator">=</span>dave
+<span class="token assign-left variable">DOMAIN</span><span class="token operator">=</span>example.com
 
-# add your ssh key
-dokku ssh-keys:add admin_$YOUR_NAME
+<span class="token comment"># add your ssh key</span>
+dokku ssh-keys:add admin_<span class="token variable">$YOUR_NAME</span>
 
-# enable wildcard subdomains on $DOMAIN
-dokku domains:set-global $DOMAIN
+<span class="token comment"># enable wildcard subdomains on $DOMAIN</span>
+dokku domains:set-global <span class="token variable">$DOMAIN</span>
 
-# postgres support
+<span class="token comment"># postgres support</span>
 dokku plugin:install https://github.com/dokku/dokku-postgres.git
-
 </code></pre>
 <h3>Creating and managing a new app</h3>
-<pre><code class="language-bash">APP_NAME=amazing-app
+<pre class="language-bash"><code class="language-bash"><span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span>amazing-app
 
-dokku apps:create $APP_NAME
+dokku apps:create <span class="token variable">$APP_NAME</span>
 
-# shouldn't be needed
-dokku domains:add $APP_NAME $APP_NAME.$DOMAIN
+<span class="token comment"># shouldn't be needed</span>
+dokku domains:add <span class="token variable">$APP_NAME</span> <span class="token variable">$APP_NAME</span><span class="token builtin class-name">.</span><span class="token variable">$DOMAIN</span>
 
-# DB
-dokku postgres:create db_$APP_NAME
-dokku postgres:link db_$APP_NAME $APP_NAME
-# check env is set
-dokku config:get $APP_NAME DATABASE_URL
+<span class="token comment"># DB</span>
+dokku postgres:create db_<span class="token variable">$APP_NAME</span>
+dokku postgres:link db_<span class="token variable">$APP_NAME</span> <span class="token variable">$APP_NAME</span>
+<span class="token comment"># check env is set</span>
+dokku config:get <span class="token variable">$APP_NAME</span> DATABASE_URL
 
-# set env vars
-dokku config:set $APP_NAME APP_ENV=prod
-</code></pre>
+<span class="token comment"># set env vars</span>
+dokku config:set <span class="token variable">$APP_NAME</span> <span class="token assign-left variable">APP_ENV</span><span class="token operator">=</span>prod</code></pre>
 <p>Once deployed, you may need to set up the app</p>
-<pre><code class="language-bash">dokku enter $APP_NAME doctrine:schema:create
-</code></pre>
+<pre class="language-bash"><code class="language-bash">dokku enter <span class="token variable">$APP_NAME</span> doctrine:schema:create</code></pre>
 <h2>Debugging</h2>
-<pre><code class="language-bash"># interactive shell
-dokku enter $APP_NAME
+<pre class="language-bash"><code class="language-bash"><span class="token comment"># interactive shell</span>
+dokku enter <span class="token variable">$APP_NAME</span>
 
-# tail logs
-dokku logs -t $APP_NAME
-</code></pre>
+<span class="token comment"># tail logs</span>
+dokku logs <span class="token parameter variable">-t</span> <span class="token variable">$APP_NAME</span></code></pre>
 
         </section>
 

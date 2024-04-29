@@ -18,52 +18,52 @@
 <p>date:   2012-07-30 08:14:07</p>
 <h3>In JavaScript</h3>
 <p>A common patten in JavaScript is <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">immediately-invoked function expressions</a>, also known as self-executing anonymous functions. These allow you to create a private scope that won’t pollute the global namespace. They look like this:</p>
-<pre><code class="language-php">&lt;?php
-(function () {
-    // variables defined here are 
-    // only visible in this scope
-}());
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// variables defined here are </span>
+    <span class="token comment">// only visible in this scope</span>
+<span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
 <h3>In PHP</h3>
 <p>Since PHP 5.3 brought along anonymous functions, the same can be done in PHP. Albeit with a slightly less elegant syntax:</p>
-<pre><code class="language-php">&lt;?php
-call_user_func(function() {
-    // do something
-});
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token function">call_user_func</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do something</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
 <p>This is useful in PHP if you have some code that has side effects but you don’t want to litter variables.
 Real world examples</p>
 <p>When bootstrapping a framework or CMS, you often have to setup the environment by defining some constants. With IIFEs you’re free to use variables liberally so you’re code’s easier to understand.</p>
-<pre><code class="language-php">&lt;?php
-call_user_func(function() {
-    // do some work, creating $result
-    define('SOMETHING', $result)
-});
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token function">call_user_func</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do some work, creating $result</span>
+    <span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'SOMETHING'</span><span class="token punctuation">,</span> <span class="token variable">$result</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
 <p>You can even return a variable from the function and assign it to a variable:</p>
-<pre><code class="language-php">&lt;?php
-$var = call_user_func(function() {
-	$a = 2;
-	$b = 2;
-	return $a + $b;
-});
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token variable">$var</span> <span class="token operator">=</span> <span class="token function">call_user_func</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token variable">$a</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+	<span class="token variable">$b</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token variable">$a</span> <span class="token operator">+</span> <span class="token variable">$b</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
 <p>Another use is registering namespaces with autoloaders (if you’re not using composer yet):</p>
-<pre><code class="language-php">&lt;?php
-call_user_func(function() {
-    require_once './vendor/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
-    $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
-    $loader-&gt;registerNamespace('Acme', __DIR__.'/vendor/acme/src');
-});
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token function">call_user_func</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">require_once</span> <span class="token string single-quoted-string">'./vendor/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php'</span><span class="token punctuation">;</span>
+    <span class="token variable">$loader</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name class-name-fully-qualified">Symfony<span class="token punctuation">\</span>Component<span class="token punctuation">\</span>ClassLoader<span class="token punctuation">\</span>UniversalClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$loader</span><span class="token operator">-></span><span class="token function">registerNamespace</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'Acme'</span><span class="token punctuation">,</span> <span class="token constant">__DIR__</span><span class="token operator">.</span><span class="token string single-quoted-string">'/vendor/acme/src'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
 <h3>The future?</h3>
 <p>PHP 5.5 looks like it has lots of <a href="http://nikic.github.com/2012/07/10/What-PHP-5-5-might-look-like.html">interesting features</a>. Hopefully one them will be better function dereferencing. If it is, we can expect to have a syntax like the following, without the ugly call to call_user_func:</p>
-<pre><code class="language-php">&lt;?php
-// php 5.5?
-function() {
-    // do something
-}();
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token comment">// php 5.5?</span>
+<span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do something</span>
+<span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
 <p>It’s great to see PHP improving and gradually making functions first-class citizens. Perhaps one day we’ll be able to pass functions around in PHP as easily as as we can in languages like JavaScript.</p>
 
         </section>

@@ -19,31 +19,27 @@
 <p>After seeing this <a href="https://twitter.com/charliebholtz/status/1724815159590293764">demo on Twitter</a> and examining the code <a href="https://github.com/cbh123/narrator/blob/main/narrator.py">here</a>, I decided to experiment with it myself.</p>
 <p>It's incredibly simple to use...</p>
 <p>The OpenAI docs provide an example with the following content:</p>
-<pre><code class="language-json">{
-  &quot;type&quot;: &quot;text&quot;,
-  &quot;text&quot;: &quot;What’s in this image?&quot;
-},
-{
-  &quot;type&quot;: &quot;image_url&quot;,
-  &quot;image_url&quot;: {
-    &quot;url&quot;: &quot;https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg&quot;
-  }
-}
-</code></pre>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"text"</span><span class="token punctuation">,</span>
+  <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"What’s in this image?"</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">{</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"image_url"</span><span class="token punctuation">,</span>
+  <span class="token property">"image_url"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"url"</span><span class="token operator">:</span> <span class="token string">"https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <p>This is encapsulated within their standard <code>messages</code> object, used across all their chat APIs.</p>
 <p>To use this, you need to select the <code>gpt-4-vision-preview</code> model, which is available if you have GPT-4 API access.</p>
 <h2><code>gptv</code> shell script</h2>
 <p>I created a simple shell script that calls the API with a user-provided image URL and query.</p>
 <p>First, you'll need an API key set in your shell environment. <a href="https://platform.openai.com/api-keys">Get your API key here</a>.</p>
-<pre><code class="language-bash">export OPENAI_API_KEY=&quot;your-secret-key&quot;
-</code></pre>
+<pre class="language-bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">OPENAI_API_KEY</span><span class="token operator">=</span><span class="token string">"your-secret-key"</span></code></pre>
 <p>Then, <strong><a href="https://gist.github.com/dave1010/64332d1ede5d7e11e45d93570d973bde">download the gptv script from this Gist</a></strong>.</p>
-<pre><code class="language-bash">curl https://gist.githubusercontent.com/dave1010/64332d1ede5d7e11e45d93570d973bde/raw/789bd70a8f9b02913e61e7cd0b706481d8c9ee19/gptv -o gptv &amp;&amp; chmod +x gptv
-</code></pre>
+<pre class="language-bash"><code class="language-bash"><span class="token function">curl</span> https://gist.githubusercontent.com/dave1010/64332d1ede5d7e11e45d93570d973bde/raw/789bd70a8f9b02913e61e7cd0b706481d8c9ee19/gptv <span class="token parameter variable">-o</span> gptv <span class="token operator">&amp;&amp;</span> <span class="token function">chmod</span> +x gptv</code></pre>
 <p>You'll also need <code>jq</code> installed (<code>sudo apt-get install jq</code> on Ubuntu or <code>brew install jq</code> on macOS).</p>
 <p>Run it by providing a prompt and a public URL to an image:</p>
-<pre><code class="language-bash">gptv 'give me some basic html and css for this web page menu' 'https://i.imgur.com/VDirZDf.png'
-</code></pre>
+<pre class="language-bash"><code class="language-bash">gptv <span class="token string">'give me some basic html and css for this web page menu'</span> <span class="token string">'https://i.imgur.com/VDirZDf.png'</span></code></pre>
 <p>The script formats the input, calls OpenAI's API, and then displays the relevant output. It takes about 10 seconds at the moment.</p>
 <p>Here's the rendered HTML and CSS that it generated:</p>
 <p><img src="https://i.imgur.com/MJIadjB.png" alt="Generated Code Image"></p>

@@ -18,42 +18,42 @@
 <p>date:   2014-12-15 07:44:07</p>
 <h2>Singletons</h2>
 <p>The Singleton pattern is when you can only instantiate 1 instance of a class. Realistically the only way to do this in PHP is by controlling object lifetime inside the object itself globally. This is bad as it uses global state (and is why Singleton is often considered an anti pattern).</p>
-<pre><code class="language-php">&lt;?php
-trait Singleton {
-    public static function getInstance()
-    {
-        static $instance = null;
-        if (null === $instance) {
-            $instance = new static();
-        }
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">trait</span> <span class="token class-name-definition class-name">Singleton</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">function</span> <span class="token function-definition function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">static</span> <span class="token variable">$instance</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token constant">null</span> <span class="token operator">===</span> <span class="token variable">$instance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token variable">$instance</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">static</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
   
-        return $instance;
-    }
-}
-</code></pre>
+        <span class="token keyword">return</span> <span class="token variable">$instance</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></code></pre>
 <h2>Shared resources and services</h2>
 <p>Another object (eg a DI container) can decide to only return a single instance of a class if it wants to. It does this by creating it the first time (usually lazily, the first time it is created, rather than ASAP) then sharing that resource by storing it as state in the container.</p>
-<pre><code class="language-php">&lt;?php
-class Container {
-    private $instances = [];
-    private $factories = [];
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">Container</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token variable">$instances</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token variable">$factories</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     
-    public function share($name, Callable $factory)
-    {
-        $this-&gt;factories[$name] = $factory
-    }
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">share</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token keyword type-hint">Callable</span> <span class="token variable">$factory</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">factories</span><span class="token punctuation">[</span><span class="token variable">$name</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$factory</span>
+    <span class="token punctuation">}</span>
 
-    public function get($name)
-    {
-        if (!isset($this-&gt;instances[$name])) {
-            $factory = $this-&gt;factories[$name];
-            $this-&gt;instances[$name] = $factory;
-        }
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">get</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$this</span><span class="token operator">-></span><span class="token property">instances</span><span class="token punctuation">[</span><span class="token variable">$name</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token variable">$factory</span> <span class="token operator">=</span> <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">factories</span><span class="token punctuation">[</span><span class="token variable">$name</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">instances</span><span class="token punctuation">[</span><span class="token variable">$name</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$factory</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        return $this-&gt;instances[$name];
-    }
-}
-</code></pre>
+        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">instances</span><span class="token punctuation">[</span><span class="token variable">$name</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></code></pre>
 <h2>The similarities</h2>
 <p>Both patterns reduce the amount of instance creation. This reduces memory usage and time cost. This is especially useful when dealing with external resources (such as file and databases).</p>
 <h2>The difference</h2>

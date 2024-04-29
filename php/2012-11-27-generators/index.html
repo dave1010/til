@@ -18,54 +18,54 @@
 <p>date:   2012-11-27 08:14:07</p>
 <p>As the first alpha of PHP 5.5 has been released, now is a great time to play with its new features. The first new feature is <a href="https://wiki.php.net/rfc/generators">generators</a>. Generators are like very simple iterators.</p>
 <p>PDO’s PDOStatement class implements Traversable, which means you can iterate over it with foreach:</p>
-<pre><code class="language-php">&lt;?php
-$sth = $dbh-&gt;prepare(&quot;SELECT * FROM users&quot;);
-$sth-&gt;execute();
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token variable">$sth</span> <span class="token operator">=</span> <span class="token variable">$dbh</span><span class="token operator">-></span><span class="token function">prepare</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"SELECT * FROM users"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$sth</span><span class="token operator">-></span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-foreach ($sth as $result) {
-    print_r($result);
-}
-</code></pre>
+<span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$sth</span> <span class="token keyword">as</span> <span class="token variable">$result</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">print_r</span><span class="token punctuation">(</span><span class="token variable">$result</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</span></code></pre>
 <p>This is great as it abstracts away much of retrieving result sets from a database and gets you straight to an array-like structure. This iterator is great as PDO only retrieves the results as they’re requested, reducing memory usage.</p>
 <p>You can recreate this by making a class that implements Iterator and its abstract methods. Whilst this is quite simple, PHP 5.5 brings generators, which allow you to create iterators using a single function.</p>
 <p>Here’s an example, using PDO again. First, some boiler plate code to set up:</p>
-<pre><code class="language-php">&lt;?php
-$dbh = new PDO('sqlite::memory:'); 
-$dbh-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$dbh-&gt;exec(&quot;CREATE TABLE users (
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token variable">$dbh</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PDO</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'sqlite::memory:'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token variable">$dbh</span><span class="token operator">-></span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token class-name static-context">PDO</span><span class="token operator">::</span><span class="token constant">ATTR_ERRMODE</span><span class="token punctuation">,</span> <span class="token class-name static-context">PDO</span><span class="token operator">::</span><span class="token constant">ERRMODE_EXCEPTION</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$dbh</span><span class="token operator">-></span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"CREATE TABLE users (
 	id INTEGER NOT NULL,
 	name VARCHAR(255),
 	PRIMARY KEY (id)
-)&quot;);
+)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-$dbh-&gt;exec(&quot;INSERT INTO users (id, name) VALUES (1, 'tom')&quot;);
-$dbh-&gt;exec(&quot;INSERT INTO users (id, name) VALUES (2, 'dick')&quot;);
-$dbh-&gt;exec(&quot;INSERT INTO users (id, name) VALUES (3, 'harry')&quot;);
+<span class="token variable">$dbh</span><span class="token operator">-></span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"INSERT INTO users (id, name) VALUES (1, 'tom')"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$dbh</span><span class="token operator">-></span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"INSERT INTO users (id, name) VALUES (2, 'dick')"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$dbh</span><span class="token operator">-></span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"INSERT INTO users (id, name) VALUES (3, 'harry')"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-$sth = $dbh-&gt;prepare(&quot;SELECT * FROM users&quot;);
-$sth-&gt;execute();
-</code></pre>
+<span class="token variable">$sth</span> <span class="token operator">=</span> <span class="token variable">$dbh</span><span class="token operator">-></span><span class="token function">prepare</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"SELECT * FROM users"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$sth</span><span class="token operator">-></span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
 <p>If we wanted to, we could now iterate over $sth using foreach like so:</p>
-<pre><code class="language-php">&lt;?php
-foreach ($sth as $result) {
-	print_r($result);
-}
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$sth</span> <span class="token keyword">as</span> <span class="token variable">$result</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token function">print_r</span><span class="token punctuation">(</span><span class="token variable">$result</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</span></code></pre>
 <p>Instead, lets create a generator that fetches rows from $sth, but passes control back to the foreach:</p>
-<pre><code class="language-php">&lt;?php
-function fetch($sth, $fetchMode) {
-    while ($result = $sth-&gt;fetch($fetchMode)) {
-        yield $result;
-    }
-}
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">function</span> <span class="token function-definition function">fetch</span><span class="token punctuation">(</span><span class="token variable">$sth</span><span class="token punctuation">,</span> <span class="token variable">$fetchMode</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token variable">$result</span> <span class="token operator">=</span> <span class="token variable">$sth</span><span class="token operator">-></span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token variable">$fetchMode</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">yield</span> <span class="token variable">$result</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></code></pre>
 <p>The key here is the “yield” keyword, which can be thought of as “start returning an item from an array”. The foreach can then loop through the results like this:</p>
-<pre><code class="language-php">&lt;?php
-$results = fetch($sth, PDO::FETCH_OBJ);
-foreach ($results as $result) {
-	echo $result-&gt;name . &quot;\n&quot;;
-}
-</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token variable">$results</span> <span class="token operator">=</span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token variable">$sth</span><span class="token punctuation">,</span> <span class="token class-name static-context">PDO</span><span class="token operator">::</span><span class="token constant">FETCH_OBJ</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$results</span> <span class="token keyword">as</span> <span class="token variable">$result</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">echo</span> <span class="token variable">$result</span><span class="token operator">-></span><span class="token property">name</span> <span class="token operator">.</span> <span class="token string double-quoted-string">"\n"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</span></code></pre>
 <p>Whilst this example is a bit pointless (as PDO already provides an Interator), you can see that generators are a simple way of creating iterators.</p>
 
         </section>
