@@ -2,7 +2,7 @@
 
 I was talking to my kids about large numbers like a googol (10^100) and a googolplex. I knew bits and pieces about bigger number but not enough to confidently explain it until now.
 
-# Addition, multiplication, iteration and tetration
+## Addition, multiplication, iteration and tetration
 
 First, let's see how operations are just repeats of the previous operation.
 

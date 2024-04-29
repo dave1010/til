@@ -7,7 +7,7 @@ volumes. These use (normally) use [bind mounts](https://docs.docker.com/storage/
 
 You can do this on the command line:
 
-```
+```bash
 docker run -v /path/to/local/dir:/path/in/container [other-options] [image-name]
 ```
 
@@ -54,7 +54,7 @@ You can also use other actions:
 
 Once you have this in your compose file, just run the new command:
 
-```
+```bash
 docker compose watch
 ```
 

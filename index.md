@@ -11,12 +11,15 @@ Find out [how this site works](til/how-this-works/).
 You may also want to read things that are big enough for a blog post
 on my [blog](https://blog.dave.engineer/).
 
----
+## Catgeories
 
-## Tags and Search
-
+<ul class="tags">
 {% for categoryObj in collections.nestedPosts %}
-<a href="#cat-{{ categoryObj.category }}">`{{ categoryObj.category }}`</a>, {% endfor %}
+<li><a href="#cat-{{ categoryObj.category }}">{{ categoryObj.category }}</a></li> {% endfor %}
+
+</ul>
+
+## Search
 
 <form action="https://github.com/search" method="get" onsubmit="this.q.value = 'repo:dave1010/til ' + this.q.value; return true;">
     <input type="hidden" name="type" value="code">

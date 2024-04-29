@@ -17,13 +17,13 @@ After tweaking some assumptions that ChatGPT made and adding necessary details, 
 ## Setting Up Wiretap
 Installing [Wiretap](https://pb33f.io/wiretap/) was straightforward:
 
-```
+```bash
 brew install pb33f/taps/wiretap
 ```
 
 Running Wiretap was just as simple:
 
-```
+```bash
 wiretap -s path/to/spec.yaml -u https://api.example.com
 ```
 

@@ -4,7 +4,7 @@
 
 This cleans up the big origin list you get when you do `git branch --remote`
 
-```
+```bash
 git remote prune origin
 ```
 
@@ -12,7 +12,7 @@ git remote prune origin
 
 This removes your local branches that have been merged into the *current* branch.
 
-```
+```bash
 git branch --merged | grep -v \* | xargs git branch -D
 ```
 
@@ -21,13 +21,13 @@ git branch --merged | grep -v \* | xargs git branch -D
 
 Remove branches that have been merged on the remote (skipping `master`)
 
-```
+```bash
 git branch -r --merged | grep -v master | sed 's/origin\///' | xargs -n 1 git push --delete origin
 ```
 
 Or if you use `main`:
 
-```
+```bash
 git branch -r --merged | grep -v main | sed 's/origin\///' | xargs -n 1 git push --delete origin
 ```
 
@@ -35,6 +35,6 @@ git branch -r --merged | grep -v main | sed 's/origin\///' | xargs -n 1 git push
 
 Note: this assumes you're currently on `master`.
 
-```
+```bash
 git config --global alias.cleanup-merged '!f() { git remote prune origin; git branch --merged | grep -v \* | xargs -I {} git branch -D {}; git branch -r --merged | grep -v master | sed "s/origin\///" | xargs -n 1 git push --delete origin; }; f'
 ```

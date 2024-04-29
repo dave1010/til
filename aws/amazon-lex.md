@@ -20,7 +20,7 @@ I started off from the [Create a bot from an example](https://docs.aws.amazon.co
 
 4. **Build and Test:** Finally, the bot was compiled and tested. I used commands like the one below to interact with the bot and refine its functionality.
 
-```
+```bash
 aws lexv2-runtime recognize-text --bot-id SJUDNSMPVC --bot-alias-id TestAlias --locale-id 'en_GB' --session-id 'testsession' --text "I want to buy a widget"
 ```
 
@@ -35,7 +35,7 @@ Developing a conversational AI isn't without its challenges. Here are a few I en
 
 You can get your bot IDs and then their aliases like this:
 
-```
+```bash
 aws lexv2-models list-bots
 aws lexv2-models list-bot-aliases --bot-id SJUDNSMPVC
 ```

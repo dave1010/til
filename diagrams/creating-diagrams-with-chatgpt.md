@@ -16,7 +16,7 @@ ChatGPT has also been trained on the [Mermaid Chart](https://mermaid.js.org/) sy
 
 Here's the code it makes:
 
-```
+```dot
 sequenceDiagram
     participant U as User
     participant S as System
