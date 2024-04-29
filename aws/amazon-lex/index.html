@@ -36,8 +36,7 @@ What's useful about Lex over large language models like GPT and Llama is that it
 <p><strong>Build and Test:</strong> Finally, the bot was compiled and tested. I used commands like the one below to interact with the bot and refine its functionality.</p>
 </li>
 </ol>
-<pre><code>aws lexv2-runtime recognize-text --bot-id SJUDNSMPVC --bot-alias-id TestAlias --locale-id 'en_GB' --session-id 'testsession' --text &quot;I want to buy a widget&quot;
-</code></pre>
+<pre class="language-bash"><code class="language-bash">aws lexv2-runtime recognize-text --bot-id SJUDNSMPVC --bot-alias-id TestAlias --locale-id <span class="token string">'en_GB'</span> --session-id <span class="token string">'testsession'</span> <span class="token parameter variable">--text</span> <span class="token string">"I want to buy a widget"</span></code></pre>
 <h2>Challenges</h2>
 <p>Developing a conversational AI isn't without its challenges. Here are a few I encountered:</p>
 <ul>
@@ -47,9 +46,8 @@ What's useful about Lex over large language models like GPT and Llama is that it
 </ul>
 <h2>Debugging</h2>
 <p>You can get your bot IDs and then their aliases like this:</p>
-<pre><code>aws lexv2-models list-bots
-aws lexv2-models list-bot-aliases --bot-id SJUDNSMPVC
-</code></pre>
+<pre class="language-bash"><code class="language-bash">aws lexv2-models list-bots
+aws lexv2-models list-bot-aliases --bot-id SJUDNSMPVC</code></pre>
 
         </section>
 

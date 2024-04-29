@@ -28,11 +28,9 @@ Following the Open API spec also allows you to make use of all sorts of existing
 After tweaking some assumptions that ChatGPT made and adding necessary details, I needed a robust way to validate and refine this spec. That's where Wiretap came into the picture.</p>
 <h2>Setting Up Wiretap</h2>
 <p>Installing <a href="https://pb33f.io/wiretap/">Wiretap</a> was straightforward:</p>
-<pre><code>brew install pb33f/taps/wiretap
-</code></pre>
+<pre class="language-bash"><code class="language-bash">brew <span class="token function">install</span> pb33f/taps/wiretap</code></pre>
 <p>Running Wiretap was just as simple:</p>
-<pre><code>wiretap -s path/to/spec.yaml -u https://api.example.com
-</code></pre>
+<pre class="language-bash"><code class="language-bash">wiretap <span class="token parameter variable">-s</span> path/to/spec.yaml <span class="token parameter variable">-u</span> https://api.example.com</code></pre>
 <p>This set up a local monitor at <code>http://localhost:9091/</code> and a proxy at <code>http://localhost:9090</code> for API requests.</p>
 <p>Then, all you need to do is fire requests to the localhost proxy and watch Wiretap report on any issues.</p>
 <h2>Discovering and Fixing Issues with Wiretap and Vacuum</h2>

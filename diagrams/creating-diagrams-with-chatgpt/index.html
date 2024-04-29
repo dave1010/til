@@ -27,24 +27,23 @@ But if you ask ChatGPT right, it can generate a good editable first draft diagra
 <li>Edit it in Mermaid.live. Change themes, download or export</li>
 </ol>
 <p>Here's the code it makes:</p>
-<pre><code>sequenceDiagram
-    participant U as User
-    participant S as System
-    participant E as Email Server
-    participant P as Phone
+<pre class="language-dot"><code class="language-dot"><span class="token node">sequenceDiagram</span>
+    <span class="token node">participant</span> <span class="token node">U</span> <span class="token node">as</span> <span class="token node">User</span>
+    <span class="token node">participant</span> <span class="token node">S</span> <span class="token node">as</span> <span class="token node">System</span>
+    <span class="token node">participant</span> <span class="token node">E</span> <span class="token node">as</span> <span class="token node">Email</span> <span class="token node">Server</span>
+    <span class="token node">participant</span> <span class="token node">P</span> <span class="token node">as</span> <span class="token node">Phone</span>
 
-    U-&gt;&gt;S: Access MFA setup page
-    S-&gt;&gt;U: Request email verification
-    U-&gt;&gt;E: Check email
-    E-&gt;&gt;U: Provide verification code
-    U-&gt;&gt;S: Enter verification code
-    S-&gt;&gt;U: Email verified, request phone number
-    U-&gt;&gt;S: Provide phone number
-    S-&gt;&gt;P: Send SMS with verification code
-    P-&gt;&gt;U: Receive SMS
-    U-&gt;&gt;S: Enter SMS code
-    S-&gt;&gt;U: Phone verified, setup complete
-</code></pre>
+    <span class="token node">U</span><span class="token operator">-></span>><span class="token node">S</span><span class="token operator">:</span> <span class="token node">Access</span> <span class="token node">MFA</span> <span class="token node">setup</span> <span class="token node">page</span>
+    <span class="token node">S</span><span class="token operator">-></span>><span class="token node">U</span><span class="token operator">:</span> <span class="token node">Request</span> <span class="token node">email</span> <span class="token node">verification</span>
+    <span class="token node">U</span><span class="token operator">-></span>><span class="token node">E</span><span class="token operator">:</span> <span class="token node">Check</span> <span class="token node">email</span>
+    <span class="token node">E</span><span class="token operator">-></span>><span class="token node">U</span><span class="token operator">:</span> <span class="token node">Provide</span> <span class="token node">verification</span> <span class="token node">code</span>
+    <span class="token node">U</span><span class="token operator">-></span>><span class="token node">S</span><span class="token operator">:</span> <span class="token node">Enter</span> <span class="token node">verification</span> <span class="token node">code</span>
+    <span class="token node">S</span><span class="token operator">-></span>><span class="token node">U</span><span class="token operator">:</span> <span class="token node">Email</span> <span class="token node">verified</span><span class="token punctuation">,</span> <span class="token node">request</span> <span class="token node">phone</span> <span class="token node">number</span>
+    <span class="token node">U</span><span class="token operator">-></span>><span class="token node">S</span><span class="token operator">:</span> <span class="token node">Provide</span> <span class="token node">phone</span> <span class="token node">number</span>
+    <span class="token node">S</span><span class="token operator">-></span>><span class="token node">P</span><span class="token operator">:</span> <span class="token node">Send</span> <span class="token node">SMS</span> <span class="token node">with</span> <span class="token node">verification</span> <span class="token node">code</span>
+    <span class="token node">P</span><span class="token operator">-></span>><span class="token node">U</span><span class="token operator">:</span> <span class="token node">Receive</span> <span class="token node">SMS</span>
+    <span class="token node">U</span><span class="token operator">-></span>><span class="token node">S</span><span class="token operator">:</span> <span class="token node">Enter</span> <span class="token node">SMS</span> <span class="token node">code</span>
+    <span class="token node">S</span><span class="token operator">-></span>><span class="token node">U</span><span class="token operator">:</span> <span class="token node">Phone</span> <span class="token node">verified</span><span class="token punctuation">,</span> <span class="token node">setup</span> <span class="token node">complete</span></code></pre>
 <h2>Mermaid supports</h2>
 <ul>
 <li>Flowchart</li>

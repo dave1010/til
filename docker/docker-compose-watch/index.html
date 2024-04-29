@@ -19,8 +19,7 @@
 <p>The standard way to keep files in sync between a Docker container and your host is using
 volumes. These use (normally) use <a href="https://docs.docker.com/storage/bind-mounts/">bind mounts</a> under the hood.</p>
 <p>You can do this on the command line:</p>
-<pre><code>docker run -v /path/to/local/dir:/path/in/container [other-options] [image-name]
-</code></pre>
+<pre class="language-bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-v</span> /path/to/local/dir:/path/in/container <span class="token punctuation">[</span>other-options<span class="token punctuation">]</span> <span class="token punctuation">[</span>image-name<span class="token punctuation">]</span></code></pre>
 <p>Or in a <code>docker-compose.yml</code> file:</p>
 <pre class="language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3.3'</span>
 <span class="token key atrule">services</span><span class="token punctuation">:</span>
@@ -52,8 +51,7 @@ they can have platform-specific dependencies.</p>
 <li><code>sync+restart</code> will make Docker sync and then reboot the container</li>
 </ul>
 <p>Once you have this in your compose file, just run the new command:</p>
-<pre><code>docker compose watch
-</code></pre>
+<pre class="language-bash"><code class="language-bash"><span class="token function">docker</span> compose <span class="token function">watch</span></code></pre>
 <p>and then it will keep the paths in sync, similar to if you had manually set up
 <a href="https://linux.die.net/man/1/inotifywait"><code>inotifywait</code></a> or <a href="https://github.com/emcrisostomo/fswatch"><code>fswatch</code></a>.</p>
 

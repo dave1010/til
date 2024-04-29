@@ -17,7 +17,7 @@
             <h1>Strace</h1>
 <p>date:   2014-02-01 12:24:07</p>
 <p>Quick strace command that I use all the time to see what files a process is opening:</p>
-<p>strace -f <command> 2&gt;&amp;1 | grep ^open</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">strace</span> <span class="token parameter variable">-f</span> <span class="token operator">&lt;</span>command<span class="token operator">></span> <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">|</span> <span class="token function">grep</span> ^open</code></pre>
 <p>Really useful to see what config files something is reading (and the order) or to see what PHP (or similar) files are being included.</p>
 <p>There’s normally other ways to do this (eg using a debugger) but sending strace’s stderr to stdout and piping through grep is useful in so many cases it’s become a command I use every day or 2.</p>
 

@@ -17,23 +17,18 @@
             <h1>Tidy up local and remote branches in git</h1>
 <h2>Your remote tracking branches</h2>
 <p>This cleans up the big origin list you get when you do <code>git branch --remote</code></p>
-<pre><code>git remote prune origin
-</code></pre>
+<pre class="language-bash"><code class="language-bash"><span class="token function">git</span> remote prune origin</code></pre>
 <h2>Local branches that have been merged</h2>
 <p>This removes your local branches that have been merged into the <em>current</em> branch.</p>
-<pre><code>git branch --merged | grep -v \* | xargs git branch -D
-</code></pre>
+<pre class="language-bash"><code class="language-bash"><span class="token function">git</span> branch <span class="token parameter variable">--merged</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-v</span> <span class="token punctuation">\</span>* <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token function">git</span> branch <span class="token parameter variable">-D</span></code></pre>
 <h2>Branches <em>on</em> the remote</h2>
 <p>Remove branches that have been merged on the remote (skipping <code>master</code>)</p>
-<pre><code>git branch -r --merged | grep -v master | sed 's/origin\///' | xargs -n 1 git push --delete origin
-</code></pre>
+<pre class="language-bash"><code class="language-bash"><span class="token function">git</span> branch <span class="token parameter variable">-r</span> <span class="token parameter variable">--merged</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-v</span> master <span class="token operator">|</span> <span class="token function">sed</span> <span class="token string">'s/origin\///'</span> <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token parameter variable">-n</span> <span class="token number">1</span> <span class="token function">git</span> push <span class="token parameter variable">--delete</span> origin</code></pre>
 <p>Or if you use <code>main</code>:</p>
-<pre><code>git branch -r --merged | grep -v main | sed 's/origin\///' | xargs -n 1 git push --delete origin
-</code></pre>
+<pre class="language-bash"><code class="language-bash"><span class="token function">git</span> branch <span class="token parameter variable">-r</span> <span class="token parameter variable">--merged</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-v</span> main <span class="token operator">|</span> <span class="token function">sed</span> <span class="token string">'s/origin\///'</span> <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token parameter variable">-n</span> <span class="token number">1</span> <span class="token function">git</span> push <span class="token parameter variable">--delete</span> origin</code></pre>
 <h2>Adding a <code>git</code> alias to do all this for you</h2>
 <p>Note: this assumes you're currently on <code>master</code>.</p>
-<pre><code>git config --global alias.cleanup-merged '!f() { git remote prune origin; git branch --merged | grep -v \* | xargs -I {} git branch -D {}; git branch -r --merged | grep -v master | sed &quot;s/origin\///&quot; | xargs -n 1 git push --delete origin; }; f'
-</code></pre>
+<pre class="language-bash"><code class="language-bash"><span class="token function">git</span> config <span class="token parameter variable">--global</span> alias.cleanup-merged <span class="token string">'!f() { git remote prune origin; git branch --merged | grep -v \* | xargs -I {} git branch -D {}; git branch -r --merged | grep -v master | sed "s/origin\///" | xargs -n 1 git push --delete origin; }; f'</span></code></pre>
 
         </section>
 
