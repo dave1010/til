@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const markdownIt = require("markdown-it");
 const md = new markdownIt();
+const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+
 
 module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("CNAME");
@@ -58,6 +60,8 @@ module.exports = function(eleventyConfig) {
 
         return categories;
     });
+
+    eleventyConfig.addPlugin(syntaxHighlight);
 
     return {
         dir: {
