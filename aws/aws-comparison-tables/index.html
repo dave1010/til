@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <header>
+        <h1><a href="/">Dave Hulbert's Today I Learned (TIL)</a></h1>
+    </header>
+
+    <main>
+        <hr>
+        <section>
+            <h1>AWS Service Comparison and Cheat Sheet</h1>
+<p><em>Note: these were created primarily with ChatGPT, Claude and Gemini, with a bit of back and forth prompting, pasting in AWS docs and correcting things.</em></p>
+<h2>AWS main topology and infrastructure options</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Feature</strong></th>
+<th><strong>AWS Regions</strong></th>
+<th><strong>AWS Local Zones</strong></th>
+<th><strong>AWS Edge Locations</strong></th>
+<th><strong>AWS Wavelength</strong></th>
+<th><strong>AWS Outposts</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Geographically distinct locations with multiple Availability Zones</td>
+<td>Extensions of Regions in metro areas</td>
+<td>Global locations for content delivery and caching</td>
+<td>Integrated with telecom providers' 5G networks</td>
+<td>AWS infrastructure deployed on-premises</td>
+</tr>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>General-purpose, high availability, fault tolerance, disaster recovery</td>
+<td>Low-latency access to a subset of AWS services in metro areas</td>
+<td>Improve web application performance through caching</td>
+<td>Ultra-low latency and high-bandwidth for 5G applications</td>
+<td>Consistent hybrid experience and local processing</td>
+</tr>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Varies, typically higher compared to Local Zones and Wavelength</td>
+<td>Lower latency compared to Regions</td>
+<td>Ultra-low latency for cached content</td>
+<td>Lowest possible latency by being embedded within the 5G network</td>
+<td>Low latency for on-premises applications</td>
+</tr>
+<tr>
+<td><strong>Primary Use</strong></td>
+<td>Broad spectrum of applications, data storage, backups</td>
+<td>Latency-sensitive applications like real-time gaming, live streaming, AR/VR</td>
+<td>Content delivery, web application performance</td>
+<td>Real-time applications requiring ultra-low latency and high bandwidth</td>
+<td>Applications requiring local processing, data residency, and low-latency</td>
+</tr>
+<tr>
+<td><strong>Services</strong></td>
+<td>Full range of AWS services</td>
+<td>Subset of AWS services</td>
+<td>CloudFront, AWS Global Accelerator, AWS WAF, Lambda@Edge</td>
+<td>Subset of AWS services (e.g., EC2, EBS, VPC)</td>
+<td>Full range of AWS services available on-premises</td>
+</tr>
+<tr>
+<td><strong>Examples</strong></td>
+<td>US East (N. Virginia), EU (Frankfurt), Asia Pacific (Tokyo)</td>
+<td>Los Angeles, Boston, Miami</td>
+<td>Over 400 locations globally</td>
+<td>Cities with 5G coverage through telecom partners like Verizon, Vodafone</td>
+<td>Customer data centers, edge locations, remote facilities</td>
+</tr>
+<tr>
+<td><strong>Connectivity</strong></td>
+<td>Standard AWS global network</td>
+<td>Connected to the nearest AWS Region</td>
+<td>Part of AWS global network</td>
+<td>Directly connected to telecom providers’ 5G networks</td>
+<td>Connected to AWS Regions for hybrid workloads</td>
+</tr>
+</tbody>
+</table>
+<h2>AWS Networking Topology, Firewalls and Routing</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Feature</strong></th>
+<th><strong>VPC (Virtual Private Cloud)</strong></th>
+<th><strong>Security Groups</strong></th>
+<th><strong>Network ACLs (Access Control Lists)</strong></th>
+<th><strong>Route Tables</strong></th>
+<th><strong>Internet Gateway</strong></th>
+<th><strong>NAT Gateway</strong></th>
+<th><strong>Transit Gateway</strong></th>
+<th><strong>AWS WAF (Web Application Firewall)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Isolated section of AWS Cloud</td>
+<td>Instance-level firewall</td>
+<td>Subnet-level firewall</td>
+<td>Controls routing of traffic within VPC</td>
+<td>Connects VPC to the internet</td>
+<td>Enables outbound internet traffic for instances in private subnets</td>
+<td>Connects multiple VPCs and on-premises networks</td>
+<td>Protects web applications from common web exploits</td>
+</tr>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>Define a virtual network logically isolated from other AWS resources</td>
+<td>Control inbound/outbound traffic for instances</td>
+<td>Control inbound/outbound traffic for subnets</td>
+<td>Manage routes between subnets and to external destinations</td>
+<td>Allow resources in a VPC to access the internet</td>
+<td>Allow private subnet resources to access the internet</td>
+<td>Simplify network architecture with centralized connectivity</td>
+<td>Protect against web exploits like SQL injection and cross-site scripting</td>
+</tr>
+<tr>
+<td><strong>Granularity</strong></td>
+<td>Network-wide</td>
+<td>Instance-level</td>
+<td>Subnet-level</td>
+<td>VPC/subnet-level</td>
+<td>VPC-level</td>
+<td>Subnet-level</td>
+<td>VPC and network-wide</td>
+<td>Application-level</td>
+</tr>
+<tr>
+<td><strong>Stateful/Stateless</strong></td>
+<td>N/A</td>
+<td>Stateful</td>
+<td>Stateless</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Stateful</td>
+</tr>
+<tr>
+<td><strong>Traffic Direction</strong></td>
+<td>Inbound and outbound</td>
+<td>Inbound and outbound</td>
+<td>Inbound and outbound</td>
+<td>Inbound and outbound</td>
+<td>Outbound only</td>
+<td>Outbound only</td>
+<td>Inbound and outbound</td>
+<td>Inbound and outbound</td>
+</tr>
+<tr>
+<td><strong>Default Behavior</strong></td>
+<td>Isolated network, no traffic allowed by default</td>
+<td>Deny all inbound, allow all outbound by default</td>
+<td>Allow all inbound and outbound by default</td>
+<td>Allow routing within VPC, explicit routes needed for external traffic</td>
+<td>No traffic allowed by default</td>
+<td>No traffic allowed by default</td>
+<td>No connectivity by default</td>
+<td>No protection by default</td>
+</tr>
+<tr>
+<td><strong>Rules</strong></td>
+<td>Define CIDR blocks, subnets, route tables</td>
+<td>Allow rules based on IP addresses, port numbers, protocols</td>
+<td>Allow and deny rules based on IP addresses, port numbers, protocols</td>
+<td>Define routes based on IP address ranges and targets</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Rules to allow or block specific HTTP/S requests</td>
+</tr>
+<tr>
+<td><strong>Use Cases</strong></td>
+<td>Customizable network topology, security, and management</td>
+<td>Protect instances from unwanted traffic</td>
+<td>Additional layer of security at the subnet level</td>
+<td>Direct traffic within VPC and to/from external networks</td>
+<td>Provide internet access to VPC resources</td>
+<td>Provide internet access to private subnets</td>
+<td>Simplify and manage complex network topologies</td>
+<td>Protect web applications from malicious attacks</td>
+</tr>
+<tr>
+<td><strong>Examples</strong></td>
+<td>Create VPC with public and private subnets</td>
+<td>Configure Security Groups to allow SSH traffic on port 22</td>
+<td>Set up Network ACL to allow HTTP traffic on port 80</td>
+<td>Route traffic between public subnet and internet</td>
+<td>Attach Internet Gateway to VPC</td>
+<td>Deploy NAT Gateway in public subnet for private subnet access</td>
+<td>Connect multiple VPCs across regions for centralized control</td>
+<td>Apply WAF rules to protect against OWASP Top 10 vulnerabilities</td>
+</tr>
+<tr>
+<td><strong>Integration</strong></td>
+<td>Integrated with other AWS services like EC2, RDS, Lambda, etc.</td>
+<td>Works with EC2 instances, ELB, RDS</td>
+<td>Works with VPC subnets, integrated with CloudTrail for logging</td>
+<td>Integrated with VPC, subnets, Internet/NAT Gateways</td>
+<td>Integrated with VPC and Route Tables</td>
+<td>Integrated with VPC, Route Tables, and Security Groups</td>
+<td>Integrated with VPCs, Direct Connect, and VPNs</td>
+<td>Integrated with CloudFront, API Gateway, ALB, and Route 53</td>
+</tr>
+</tbody>
+</table>
+<h1>AWS Storage Services</h1>
+<table>
+<thead>
+<tr>
+<th><strong>Feature</strong></th>
+<th><strong>S3 (Simple Storage Service)</strong></th>
+<th><strong>EBS (Elastic Block Store)</strong></th>
+<th><strong>EFS (Elastic File System)</strong></th>
+<th><strong>Glacier</strong></th>
+<th><strong>FSx</strong></th>
+<th><strong>EC2 Instance Store</strong></th>
+<th><strong>AWS Storage Gateway</strong></th>
+<th><strong>AWS File Cache</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Object storage</td>
+<td>Block storage for EC2 instances</td>
+<td>File storage</td>
+<td>Archival storage</td>
+<td>Managed file systems (Windows, Lustre, etc.)</td>
+<td>Ephemeral block storage for EC2 instances</td>
+<td>Hybrid cloud storage</td>
+<td>Caching for high-performance applications</td>
+</tr>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>Store and retrieve any amount of data</td>
+<td>Persistent block storage for EC2 instances</td>
+<td>Scalable file storage for multiple instances</td>
+<td>Long-term data archiving</td>
+<td>Specialized file systems for specific use cases</td>
+<td>Temporary storage for high I/O operations</td>
+<td>Integrate on-premises environments with AWS</td>
+<td>Cache frequently accessed data for low latency</td>
+</tr>
+<tr>
+<td><strong>Data Access</strong></td>
+<td>HTTP/S, REST API</td>
+<td>Attached to EC2 instances as volumes</td>
+<td>NFS (Network File System)</td>
+<td>REST API, SDK</td>
+<td>NFS (Lustre), SMB (Windows)</td>
+<td>Directly attached to EC2 instances</td>
+<td>NFS, SMB, iSCSI</td>
+<td>NFS, SMB</td>
+</tr>
+<tr>
+<td><strong>Durability</strong></td>
+<td>99.999999999% (11 9's)</td>
+<td>99.999%</td>
+<td>99.999999999%</td>
+<td>99.999999999%</td>
+<td>99.999999999% (varies by FSx type)</td>
+<td>Data persists only during instance life</td>
+<td>Varies by configuration</td>
+<td>99.999999999%</td>
+</tr>
+<tr>
+<td><strong>Availability</strong></td>
+<td>99.99% - 99.999999999%</td>
+<td>99.99%</td>
+<td>99.99%</td>
+<td>99.99%</td>
+<td>99.99% (varies by FSx type)</td>
+<td>Data persists only during instance life</td>
+<td>Varies by configuration</td>
+<td>99.99%</td>
+</tr>
+<tr>
+<td><strong>Scalability</strong></td>
+<td>Virtually unlimited</td>
+<td>Up to 64 TiB per volume</td>
+<td>Virtually unlimited</td>
+<td>Virtually unlimited</td>
+<td>Up to petabytes</td>
+<td>Limited to instance type</td>
+<td>Scale up by adding more gateways</td>
+<td>Scale by adding more cache nodes</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>High throughput, low latency</td>
+<td>High IOPS, low latency</td>
+<td>Scalable throughput and IOPS</td>
+<td>Varies (low retrieval times for expedited)</td>
+<td>High performance (varies by FSx type)</td>
+<td>High IOPS, low latency</td>
+<td>Dependent on network and configuration</td>
+<td>High performance, low latency</td>
+</tr>
+<tr>
+<td><strong>Use Cases</strong></td>
+<td>Backup, archival, data lakes, big data analytics</td>
+<td>Databases, file systems, applications</td>
+<td>Big data and analytics, content management</td>
+<td>Long-term backups, regulatory archives</td>
+<td>HPC, big data analytics, Windows applications</td>
+<td>Caching, temporary data processing</td>
+<td>Backup and restore, file sharing, disaster recovery</td>
+<td>High-speed caching for data-intensive applications</td>
+</tr>
+<tr>
+<td><strong>Pricing</strong></td>
+<td>Pay-as-you-go, based on storage used</td>
+<td>Pay-as-you-go, based on provisioned storage</td>
+<td>Pay-as-you-go, based on storage used</td>
+<td>Pay-as-you-go, based on storage and retrieval</td>
+<td>Pay-as-you-go, based on provisioned storage</td>
+<td>Included in EC2 instance cost</td>
+<td>Pay-as-you-go, based on gateway and usage</td>
+<td>Pay-as-you-go, based on provisioned cache</td>
+</tr>
+<tr>
+<td><strong>Integration</strong></td>
+<td>Integrated with many AWS services (Lambda, Athena)</td>
+<td>Integrated with EC2</td>
+<td>Integrated with EC2, ECS, Lambda</td>
+<td>Integrated with S3 for archival</td>
+<td>Integrated with EC2, Direct Connect</td>
+<td>Integrated with EC2</td>
+<td>Integrated with on-premises infrastructure</td>
+<td>Integrated with AWS storage services</td>
+</tr>
+<tr>
+<td><strong>Management</strong></td>
+<td>Managed by AWS</td>
+<td>Managed by AWS</td>
+<td>Managed by AWS</td>
+<td>Managed by AWS</td>
+<td>Managed by AWS</td>
+<td>User-managed</td>
+<td>Managed by AWS, with on-premises deployment</td>
+<td>Managed by AWS</td>
+</tr>
+<tr>
+<td><strong>Examples</strong></td>
+<td>Storing images, videos, backups, logs</td>
+<td>Running databases, ERP systems</td>
+<td>Shared file storage for web serving, CMS</td>
+<td>Archiving financial and healthcare records</td>
+<td>FSx for Windows (file storage), FSx for Lustre (HPC)</td>
+<td>High-performance storage for temporary data</td>
+<td>File Gateway for NFS/SMB, Tape Gateway</td>
+<td>Caching frequently accessed data for HPC</td>
+</tr>
+</tbody>
+</table>
+<h2>AWS Database Services</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Feature</strong></th>
+<th><strong>Amazon RDS</strong></th>
+<th><strong>Amazon DynamoDB</strong></th>
+<th><strong>Amazon Aurora</strong></th>
+<th><strong>Amazon Redshift</strong></th>
+<th><strong>Amazon ElastiCache</strong></th>
+<th><strong>Amazon MemoryDB for Redis</strong></th>
+<th><strong>Amazon DocumentDB</strong></th>
+<th><strong>Amazon Keyspaces</strong></th>
+<th><strong>Amazon Neptune</strong></th>
+<th><strong>Amazon Timestream</strong></th>
+<th><strong>Amazon Quantum Ledger Database (QLDB)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Database Type</strong></td>
+<td>Relational</td>
+<td>NoSQL (Key-Value and Document)</td>
+<td>Relational</td>
+<td>Data Warehouse</td>
+<td>In-memory cache and store</td>
+<td>Managed Redis-compatible in-memory database</td>
+<td>Managed MongoDB-compatible document database</td>
+<td>Managed Cassandra-compatible database</td>
+<td>Managed graph database</td>
+<td>Time series</td>
+<td>Ledger database</td>
+</tr>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>Traditional relational databases</td>
+<td>High-performance, scalable NoSQL</td>
+<td>MySQL and PostgreSQL compatibility with added performance</td>
+<td>Analytical queries and large-scale data processing</td>
+<td>Accelerate database queries, caching</td>
+<td>Low-latency, Redis-compatible caching</td>
+<td>MongoDB workloads</td>
+<td>Cassandra workloads</td>
+<td>Relationship and graph-based queries</td>
+<td>Store and analyze time series data</td>
+<td>Immutable, cryptographically verifiable ledger</td>
+</tr>
+<tr>
+<td><strong>Use Cases</strong></td>
+<td>OLTP applications, transactional data</td>
+<td>Applications requiring consistent, single-digit millisecond latency at any scale</td>
+<td>High throughput and availability for relational workloads</td>
+<td>Complex analytical queries, big data</td>
+<td>Speed up read-heavy applications, session stores</td>
+<td>Real-time bidding, session caching, leaderboards</td>
+<td>Content management, catalogs, user profiles</td>
+<td>IoT, messaging, gaming applications</td>
+<td>Social networks, recommendation engines, fraud detection</td>
+<td>IoT applications, operational monitoring</td>
+<td>Supply chain, finance, health records</td>
+</tr>
+<tr>
+<td><strong>Data Model</strong></td>
+<td>Tables, rows, and columns</td>
+<td>Tables with items (key-value pairs) and attributes</td>
+<td>Tables, rows, and columns</td>
+<td>Tables with rows and columns</td>
+<td>Key-value store</td>
+<td>Key-value store</td>
+<td>Collections, documents (JSON)</td>
+<td>Tables with rows and columns</td>
+<td>Property graphs (nodes and edges)</td>
+<td>Tables with rows and columns</td>
+<td>Tables with rows and columns</td>
+</tr>
+<tr>
+<td><strong>Scalability</strong></td>
+<td>Vertical and horizontal scaling</td>
+<td>Fully managed, automatic scaling</td>
+<td>Auto-scaling, serverless options</td>
+<td>Scalable compute nodes and storage</td>
+<td>Cluster mode for sharding</td>
+<td>Scalable through clustering</td>
+<td>Auto-scaling storage</td>
+<td>Scalable throughput and storage</td>
+<td>Scale out with read replicas</td>
+<td>Auto-scaling, serverless</td>
+<td>Scales with ledger size</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>High performance with provisioned IOPS</td>
+<td>Single-digit millisecond response times</td>
+<td>High performance with up to 5x throughput of standard MySQL</td>
+<td>High performance for analytical queries</td>
+<td>Low latency</td>
+<td>Microsecond read and write latencies</td>
+<td>Millisecond read and write latencies</td>
+<td>Millisecond latency</td>
+<td>Millisecond latency</td>
+<td>High ingestion rates and query performance</td>
+<td>High throughput</td>
+</tr>
+<tr>
+<td><strong>Availability</strong></td>
+<td>Multi-AZ deployments for high availability</td>
+<td>Global tables for multi-region and high availability</td>
+<td>Multi-AZ, cross-region replication</td>
+<td>Multi-AZ, fault-tolerant</td>
+<td>Multi-AZ clusters</td>
+<td>Multi-AZ replication</td>
+<td>Multi-AZ, continuous backups</td>
+<td>Multi-AZ replication</td>
+<td>Multi-AZ replication</td>
+<td>Multi-AZ replication</td>
+<td>Built-in multi-region availability</td>
+</tr>
+<tr>
+<td><strong>Management</strong></td>
+<td>Fully managed, automatic backups, patching, and updates</td>
+<td>Fully managed, on-demand backup and restore</td>
+<td>Fully managed, automatic backups, patching, and updates</td>
+<td>Fully managed, automatic backups, patching, and updates</td>
+<td>Fully managed, automatic backups, patching, and updates</td>
+<td>Fully managed, automatic backups, patching, and updates</td>
+<td>Fully managed, automatic backups, patching, and updates</td>
+<td>Fully managed, automatic backups, patching, and updates</td>
+<td>Fully managed, automatic backups, patching, and updates</td>
+<td>Fully managed, automatic backups, patching, and updates</td>
+<td>Fully managed, automatic backups, patching, and updates</td>
+</tr>
+<tr>
+<td><strong>Pricing</strong></td>
+<td>Pay-as-you-go, reserved instances</td>
+<td>Pay-as-you-go, provisioned throughput</td>
+<td>Pay-as-you-go, reserved instances</td>
+<td>Pay-as-you-go, reserved instances</td>
+<td>Pay-as-you-go, reserved nodes</td>
+<td>Pay-as-you-go, reserved instances</td>
+<td>Pay-as-you-go, reserved instances</td>
+<td>Pay-as-you-go, reserved instances</td>
+<td>Pay-as-you-go, reserved instances</td>
+<td>Pay-as-you-go, reserved instances</td>
+<td>Pay-as-you-go, reserved instances</td>
+</tr>
+<tr>
+<td><strong>Examples</strong></td>
+<td>MySQL, PostgreSQL, MariaDB, Oracle, SQL Server</td>
+<td>Key-value stores, gaming leaderboards, mobile apps</td>
+<td>MySQL, PostgreSQL, Serverless, Global Databases</td>
+<td>Business intelligence, complex queries</td>
+<td>Session storage, leaderboard, caching</td>
+<td>Gaming, financial services, health care applications</td>
+<td>Content management systems, catalogs, user profiles</td>
+<td>IoT applications, messaging, gaming applications</td>
+<td>Social networks, recommendation engines, fraud detection</td>
+<td>IoT sensor data, financial trading, operational monitoring</td>
+<td>Supply chain tracking, financial systems, healthcare records</td>
+</tr>
+</tbody>
+</table>
+<h2>AWS Compute Services:</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Feature</strong></th>
+<th><strong>EC2</strong></th>
+<th><strong>Lambda</strong></th>
+<th><strong>Fargate</strong></th>
+<th><strong>ECS</strong></th>
+<th><strong>EKS</strong></th>
+<th><strong>Lightsail</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Service Type</strong></td>
+<td>Virtual Machines</td>
+<td>Serverless Functions</td>
+<td>Serverless Containers</td>
+<td>Container Orchestration</td>
+<td>Kubernetes Service</td>
+<td>Virtual Private Server</td>
+</tr>
+<tr>
+<td><strong>Pricing Model</strong></td>
+<td>Pay per use (instance type, uptime)</td>
+<td>Pay per use (invocations, duration)</td>
+<td>Pay per use (vCPU, memory)</td>
+<td>Pay per use (EC2 instances or Fargate)</td>
+<td>Pay per use (EC2 instances, Fargate)</td>
+<td>Fixed monthly plans</td>
+</tr>
+<tr>
+<td><strong>Compute Capacity</strong></td>
+<td>Configurable (instance types)</td>
+<td>Automatically scales</td>
+<td>Configurable (vCPU, memory)</td>
+<td>Configurable (instances, tasks)</td>
+<td>Configurable (nodes, pods)</td>
+<td>Fixed options (plans)</td>
+</tr>
+<tr>
+<td><strong>Operational Responsibility</strong></td>
+<td>Server management (patching, scaling)</td>
+<td>Fully managed</td>
+<td>Cluster management</td>
+<td>Cluster management</td>
+<td>Cluster management</td>
+<td>Fully managed</td>
+</tr>
+<tr>
+<td><strong>Deployment Model</strong></td>
+<td>Virtual Machines</td>
+<td>Functions (code)</td>
+<td>Containers</td>
+<td>Containers</td>
+<td>Containers</td>
+<td>Virtual Machines</td>
+</tr>
+<tr>
+<td><strong>Orchestration</strong></td>
+<td>Manual or third-party tools</td>
+<td>Fully managed</td>
+<td>ECS or EKS</td>
+<td>ECS</td>
+<td>EKS</td>
+<td>Manual or third-party tools</td>
+</tr>
+<tr>
+<td><strong>Primary Use Case</strong></td>
+<td>Long-running applications, monoliths</td>
+<td>Event-driven, short-lived tasks</td>
+<td>Microservices, batch jobs</td>
+<td>Containerized applications</td>
+<td>Containerized applications, microservices</td>
+<td>Simple web apps, blogs, websites</td>
+</tr>
+<tr>
+<td><strong>Integration</strong></td>
+<td>Wide range of AWS services</td>
+<td>Integrates with many AWS services</td>
+<td>Integrates with other AWS services</td>
+<td>Integrates with other AWS services</td>
+<td>Integrates with other AWS services</td>
+<td>Fewer integrations</td>
+</tr>
+<tr>
+<td><strong>Scalability</strong></td>
+<td>Vertical (instance types), Horizontal (Auto Scaling)</td>
+<td>Automatically scales</td>
+<td>Horizontal scaling</td>
+<td>Horizontal scaling</td>
+<td>Horizontal scaling</td>
+<td>Vertical scaling (plan changes)</td>
+</tr>
+<tr>
+<td><strong>Container Support</strong></td>
+<td>Yes (with Docker or other tools)</td>
+<td>No</td>
+<td>Yes (managed containers)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Limited</td>
+</tr>
+</tbody>
+</table>
+<h2>EC2 instance types</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Instance Type</strong></th>
+<th><strong>On-Demand</strong></th>
+<th><strong>Reserved</strong></th>
+<th><strong>Spot</strong></th>
+<th><strong>Dedicated Hosts</strong></th>
+<th><strong>Dedicated Instances</strong></th>
+<th><strong>Capacity Reserved</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pricing</strong></td>
+<td>Pay per second, no upfront cost</td>
+<td>Upfront payment for a term, hourly usage fee</td>
+<td>Bid-based, fluctuating price</td>
+<td>Per-host billing, hourly rate</td>
+<td>Per-instance billing, hourly rate</td>
+<td>Upfront payment, hourly usage fee</td>
+</tr>
+<tr>
+<td><strong>Cost Savings</strong></td>
+<td>-</td>
+<td>Up to 72% discount</td>
+<td>Up to 90% discount</td>
+<td>-</td>
+<td>-</td>
+<td>Discount over On-Demand</td>
+</tr>
+<tr>
+<td><strong>Instance Availability</strong></td>
+<td>Available as needed</td>
+<td>Reserved capacity</td>
+<td>Opportunistic, can be interrupted</td>
+<td>Dedicated physical servers</td>
+<td>Dedicated physical server capacity</td>
+<td>Reserved capacity</td>
+</tr>
+<tr>
+<td><strong>Use Case</strong></td>
+<td>Short-term, unpredictable workloads</td>
+<td>Steady-state, predictable usage</td>
+<td>Fault-tolerant, flexible workloads</td>
+<td>Compliance, licensing, legacy apps</td>
+<td>Compliance, licensing requirements</td>
+<td>Predictable usage</td>
+</tr>
+<tr>
+<td><strong>Term Commitment</strong></td>
+<td>None</td>
+<td>1 or 3 years</td>
+<td>None</td>
+<td>3 years</td>
+<td>None</td>
+<td>1 or 3 years</td>
+</tr>
+<tr>
+<td><strong>Instance Types</strong></td>
+<td>All</td>
+<td>Specific</td>
+<td>Varies, based on availability</td>
+<td>Specific</td>
+<td>Specific</td>
+<td>Specific</td>
+</tr>
+</tbody>
+</table>
+<h2>AWS Services List</h2>
+<ul>
+<li><strong>SageMaker</strong>: Managed service for building, training, and deploying machine learning models.</li>
+<li><strong>Athena</strong>: Query service for analyzing data in S3 using SQL.</li>
+<li><strong>Kinesis</strong>: Real-time data streaming service.</li>
+<li><strong>Snowball</strong>: Physical device for data transfer to and from AWS.</li>
+<li><strong>Macie</strong>: Security service that uses machine learning to discover, classify, and protect sensitive data.</li>
+<li><strong>Glue</strong>: Managed ETL service for preparing and transforming data.</li>
+<li><strong>Elastic Beanstalk</strong>: Platform as a service for deploying and scaling web applications.</li>
+<li><strong>Fargate</strong>: Serverless compute engine for containers.</li>
+<li><strong>Lambda</strong>: Run code in response to events without provisioning servers.</li>
+<li><strong>Aurora</strong>: High-performance, MySQL and PostgreSQL-compatible relational database.</li>
+<li><strong>Neptune</strong>: Managed graph database service.</li>
+<li><strong>Lightsail</strong>: Easy-to-use virtual private server with predictable pricing.</li>
+<li><strong>Greengrass</strong>: Software for running local compute, messaging, and data caching for IoT devices.</li>
+<li><strong>Firehose</strong>: Load streaming data into data lakes, warehouses, and analytics services.</li>
+<li><strong>Redshift</strong>: Managed data warehouse service.</li>
+<li><strong>CloudFront</strong>: Content delivery network (CDN) service.</li>
+<li><strong>Wavelength</strong>: Brings AWS services to the edge of the 5G network.</li>
+<li><strong>Outposts</strong>: Bring AWS infrastructure and services to on-premises locations.</li>
+<li><strong>AppStream</strong>: Stream desktop applications to any device.</li>
+<li><strong>Chime</strong>: Communication service for online meetings, video conferencing, and business calling.</li>
+<li><strong>WorkSpaces</strong>: Managed, secure cloud desktop service.</li>
+<li><strong>Kendra</strong>: Enterprise search service powered by machine learning.</li>
+<li><strong>Lex</strong>: Build conversational interfaces using voice and text.</li>
+<li><strong>Polly</strong>: Text-to-speech service.</li>
+<li><strong>Transcribe</strong>: Automatic speech recognition (ASR) service.</li>
+<li><strong>Comprehend</strong>: Natural language processing (NLP) service.</li>
+<li><strong>Rekognition</strong>: Image and video analysis service.</li>
+<li><strong>Textract</strong>: Extract text and data from scanned documents.</li>
+<li><strong>Elemental</strong>: Video processing and delivery service.</li>
+<li><strong>Braket</strong>: Quantum computing service.</li>
+<li><strong>QuickSight</strong>: Business intelligence service for data visualization.</li>
+<li><strong>OpsWorks</strong>: Configuration management service that uses Chef or Puppet.</li>
+<li><strong>CodePipeline</strong>: Continuous integration and delivery service.</li>
+<li><strong>CodeBuild</strong>: Fully managed build service.</li>
+<li><strong>CodeDeploy</strong>: Automates code deployments to any instance.</li>
+<li><strong>CodeStar</strong>: Unified user interface for managing software development activities.</li>
+<li><strong>AppRunner</strong>: Deploy and run containerized web applications and APIs.</li>
+<li><strong>Step Functions</strong>: Coordinate distributed applications using visual workflows.</li>
+<li><strong>Config</strong>: Service to assess, audit, and evaluate the configurations of your AWS resources.</li>
+<li><strong>X-Ray</strong>: Debug and analyze microservices applications.</li>
+<li><strong>Elastic Transcoder</strong>: Media transcoding service.</li>
+<li><strong>Proton</strong>: Automated management for container and serverless deployments.</li>
+<li><strong>AppFlow</strong>: Managed integration service for SaaS apps.</li>
+<li><strong>Ground Station</strong>: Fully managed service for satellite communications.</li>
+<li><strong>IoT Core</strong>: Managed cloud service for connected devices.</li>
+<li><strong>IoT Greengrass</strong>: Software to run local compute, messaging, and data caching for IoT devices.</li>
+<li><strong>IoT Analytics</strong>: Analytics service for IoT data.</li>
+<li><strong>IoT Events</strong>: Service for detecting and responding to events from IoT sensors.</li>
+<li><strong>IoT SiteWise</strong>: Collect, store, organize, and monitor data from industrial equipment.</li>
+<li><strong>IoT Things Graph</strong>: Service for building IoT applications with little or no code.</li>
+<li><strong>IoT TwinMaker</strong>: Service to create digital twins of real-world systems.</li>
+<li><strong>Location Service</strong>: Add location data to applications.</li>
+<li><strong>Panorama</strong>: Computer vision at the edge.</li>
+<li><strong>Sumerian</strong>: Create and run 3D, AR, and VR applications.</li>
+<li><strong>Glue DataBrew</strong>: Visual data preparation tool.</li>
+<li><strong>EventBridge</strong>: Serverless event bus for integrating applications.</li>
+<li><strong>Systems Manager</strong>: Unified interface for operational data from AWS services.</li>
+<li><strong>Certificate Manager</strong>: Provision, manage, and deploy SSL/TLS certificates.</li>
+<li><strong>Artifact</strong>: Access compliance reports and agreements.</li>
+<li><strong>GuardDuty</strong>: Threat detection service.</li>
+<li><strong>Detective</strong>: Investigate security issues.</li>
+<li><strong>Security Hub</strong>: Central security management service.</li>
+<li><strong>Shield</strong>: DDoS protection service.</li>
+<li><strong>WAF</strong>: Web application firewall.</li>
+<li><strong>Audit Manager</strong>: Automates evidence collection for audits.</li>
+<li><strong>Control Tower</strong>: Set up and govern a secure, compliant multi-account AWS environment.</li>
+<li><strong>Service Catalog</strong>: Create and manage catalogs of IT services.</li>
+<li><strong>Well-Architected Tool</strong>: Review and improve cloud architectures.</li>
+<li><strong>Personalize</strong>: Real-time personalization and recommendation service.</li>
+<li><strong>Forecast</strong>: Time-series forecasting service.</li>
+<li><strong>DeepComposer</strong>: Machine learning-powered music composition.</li>
+<li><strong>DeepLens</strong>: Deep learning-enabled video camera.</li>
+<li><strong>DeepRacer</strong>: Autonomous 1/18th scale race car for reinforcement learning.</li>
+<li><strong>AWS Batch</strong>: Run batch computing workloads.</li>
+<li><strong>Elastic File System (EFS)</strong>: Scalable file storage service.</li>
+<li><strong>Elastic Load Balancing (ELB)</strong>: Distributes incoming traffic across multiple targets.</li>
+<li><strong>FSx for Windows File Server</strong>: Fully managed Windows file system.</li>
+<li><strong>FSx for Lustre</strong>: High-performance file system integrated with S3.</li>
+<li><strong>S3 Glacier</strong>: Low-cost cloud storage for data archiving and backup.</li>
+<li><strong>CloudFormation</strong>: Infrastructure as code service.</li>
+<li><strong>CloudTrail</strong>: Track user activity and API usage.</li>
+<li><strong>Elastic MapReduce (EMR)</strong>: Managed Hadoop framework for processing big data.</li>
+<li><strong>Managed Streaming for Apache Kafka (MSK)</strong>: Managed Apache Kafka service.</li>
+<li><strong>DataSync</strong>: Automated data transfer service.</li>
+<li><strong>Snowcone</strong>: Small, portable edge computing and data transfer device.</li>
+<li><strong>Snowmobile</strong>: Exabyte-scale data transfer service.</li>
+<li><strong>App Mesh</strong>: Service mesh for microservices.</li>
+<li><strong>Backup</strong>: Centralized backup service.</li>
+<li><strong>CloudEndure Migration</strong>: Simplify, expedite, and automate large-scale migration to AWS.</li>
+<li><strong>Database Migration Service (DMS)</strong>: Migrate databases to AWS with minimal downtime.</li>
+<li><strong>Global Accelerator</strong>: Improve availability and performance for global applications.</li>
+<li><strong>Snow Family</strong>: Collective term for AWS Snowball, Snowcone, and Snowmobile devices.</li>
+<li><strong>WorkLink</strong>: Secure mobile access to internal web content.</li>
+<li><strong>WorkDocs</strong>: Secure document storage and sharing service.</li>
+</ul>
+
+        </section>
+
+        <hr>
+
+        <footer>
+            <p>
+                &copy; Dave Hulbert<br><a href="/">Home</a>
+                    |
+                    <a href="https://github.com/dave1010/til/blob/main/./aws/aws-comparison-tables.md" target="_blank">Edit this page on GitHub</a></p>
+        </footer>
+    </main>
+  </body>
+</html>
