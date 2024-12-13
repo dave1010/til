@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+    <header>
+        <h1><a href="/">Dave Hulbert's Today I Learned (TIL)</a></h1>
+    </header>
+
+    <main>
+        <hr>
+        <section>
+            <h1>Deploying a Static Site with Basic Auth on Cloudflare Pages</h1>
+<p>Here's how to deploy a static HTML site on Cloudflare Pages and secure it with Basic Authentication using <a href="https://developers.cloudflare.com/pages/functions/middleware/">middleware</a>.
+This is simple to set up and means that people or bots can't access your site without a password.</p>
+<p>Note that Basic Authentication is... <em>basic</em>. This only provides a single user/pass combo and doesn't protect against things like timing attacks.
+Still, it's enough for some needs like preventing people stumbling on something.</p>
+<p><strong>0. Prerequisits</strong></p>
+<p>You'll need the <a href="https://developers.cloudflare.com/workers/wrangler/install-and-update/">Wrangler CLI</a> installed and authenticated with your Cloudflare account:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> wrangler
+wrangler login</code></pre>
+<p><strong>1. Prepare the Project</strong></p>
+<p>I'm using <code>auth-test</code> for my project here. If you're copy and pasting this then find and replace that.</p>
+<p>If you haven't already, create a static site:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">mkdir</span> auth-test
+<span class="token builtin class-name">cd</span> auth-test
+<span class="token builtin class-name">echo</span> <span class="token string">'&lt;h1>Welcome to the Auth Test!&lt;/h1>'</span> <span class="token operator">></span> index.html</code></pre>
+<p>Set it up as a Cloudflare Pages site:</p>
+<pre class="language-bash"><code class="language-bash">npx wrangler pages project create auth-test</code></pre>
+<p><strong>2. Add Basic Auth</strong></p>
+<p>We need a <code>_middleware.js</code> file, which Cloudflare will pick up automatically.</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">mkdir</span> <span class="token parameter variable">-p</span> functions
+<span class="token function">touch</span> functions/_middleware.js</code></pre>
+<p>Paste in the very basic middleware logic:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">onRequest</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">context</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+ <span class="token keyword">const</span> <span class="token punctuation">{</span> request<span class="token punctuation">,</span> env <span class="token punctuation">}</span> <span class="token operator">=</span> context<span class="token punctuation">;</span>
+ <span class="token keyword">const</span> auth <span class="token operator">=</span> request<span class="token punctuation">.</span>headers<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'Authorization'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">const</span> <span class="token punctuation">[</span>user<span class="token punctuation">,</span> pass<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>env<span class="token punctuation">.</span><span class="token constant">BASIC_USER</span><span class="token punctuation">,</span> env<span class="token punctuation">.</span><span class="token constant">BASIC_PASS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+ <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>auth <span class="token operator">||</span> <span class="token operator">!</span><span class="token function">isValid</span><span class="token punctuation">(</span>auth<span class="token punctuation">,</span> user<span class="token punctuation">,</span> pass<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Response</span><span class="token punctuation">(</span><span class="token string">'Unauthorized'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+     <span class="token literal-property property">status</span><span class="token operator">:</span> <span class="token number">401</span><span class="token punctuation">,</span>
+     <span class="token literal-property property">headers</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token string-property property">'WWW-Authenticate'</span><span class="token operator">:</span> <span class="token string">'Basic realm="Secure Area"'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">return</span> <span class="token keyword">await</span> context<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">isValid</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">auth<span class="token punctuation">,</span> user<span class="token punctuation">,</span> pass</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+ <span class="token keyword">const</span> <span class="token punctuation">[</span>scheme<span class="token punctuation">,</span> encoded<span class="token punctuation">]</span> <span class="token operator">=</span> auth<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">if</span> <span class="token punctuation">(</span>scheme <span class="token operator">!==</span> <span class="token string">'Basic'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+ <span class="token keyword">const</span> decoded <span class="token operator">=</span> <span class="token function">atob</span><span class="token punctuation">(</span>encoded<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">return</span> decoded<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">===</span> user <span class="token operator">&amp;&amp;</span> decoded<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">===</span> pass<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>Cloudflare have an <a href="https://developers.cloudflare.com/workers/examples/basic-auth/">example Basic Auth Worker</a> that covers
+a few more things like timing safe comparison, logging out, caching and error handling.</p>
+<p><strong>3. Add Secrets for Authentication</strong></p>
+<p>Use Wrangler to set up  added the username and password as secrets:</p>
+<pre class="language-bash"><code class="language-bash">npx wrangler pages secret put BASIC_USER
+npx wrangler pages secret put BASIC_PASS</code></pre>
+<p>You'll be prompted to enter the secrets. Use a password manager to generate and save them.</p>
+<p><strong>4. Deploy the Site</strong></p>
+<p>Finally, deployed the project to Cloudflare Pages:</p>
+<pre class="language-bash"><code class="language-bash">npx wrangler pages deploy <span class="token builtin class-name">.</span> --project-name auth-test</code></pre>
+<p>This example deploys the current directory but you can use a git repo instead.</p>
+<p>You'll be given a URL to the site, which should have basic auth working.</p>
+
+        </section>
+
+        <hr>
+
+        <footer>
+            <p>
+                &copy; Dave Hulbert<br><a href="/">Home</a>
+                    |
+                    <a href="https://github.com/dave1010/til/blob/main/./cloudflare/cloudflare-pages-basic-auth.md" target="_blank">Edit this page on GitHub</a></p>
+        </footer>
+    </main>
+  </body>
+</html>
