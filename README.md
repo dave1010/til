@@ -1,6 +1,8 @@
 # Dave Hulbert's Today I Learned (TIL)
 
-## View here: [`https://til.dave.engineer`](https://til.dave.engineer)
+## Moved to [https://dave.engineer/blog/type/til/](https://dave.engineer/blog/type/til/)
+
+Old site was here: [`https://til.dave.engineer`](https://til.dave.engineer)
 
 ## About
 
